@@ -1,8 +1,25 @@
-import { MapContainer, TileLayer } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import { mapApi } from "../../services/mapApi";
+import L from 'leaflet';
 
+
+interface StationData {
+  ST_ID: number;
+  LATITUDE: number;
+  LONGITUDE: number;
+}
 
 const RussiaRailwayMap = () => {
+  const { data: stationCoordData } = mapApi.useGetStationCoordQuery('')
+
+  const trailSignIcon = new L.Icon({
+    iconUrl: "https://c0.klipartz.com/pngpicture/450/381/gratis-png-estacion-de-tren-ferrocarril-transporte-iconos-de-la-computadora-pista-icono-de-la-tiroides.png",
+    iconSize: [30, 30],
+    iconAnchor: [15, 30],
+    popupAnchor: [0, -30],
+  });
+
   const mapStyle = {
     height: "calc(93vh)",
     display: "flex",
@@ -37,10 +54,19 @@ const RussiaRailwayMap = () => {
         url="https://tiles.openrailwaymap.org/standard/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openrailwaymap.org/">OpenRailwayMap</a> contributors'
       />
+
+      {stationCoordData && stationCoordData.map((station: StationData) => (
+          <Marker
+            key={station.ST_ID}
+            position={[station.LATITUDE, station.LONGITUDE]}
+            icon={trailSignIcon}
+          >
+            {/* Можно добавить Popup, если необходимо */}
+            <Popup>{`Станция ID: ${station.ST_ID}`}</Popup>
+          </Marker>
+      ))}
     </MapContainer>
   );
 };
 
 export default RussiaRailwayMap;
-
-

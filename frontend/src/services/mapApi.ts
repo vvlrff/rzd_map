@@ -4,15 +4,15 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const mapApi = createApi({
   reducerPath: "mapApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://overpass-api.de",
+    baseUrl: "http://127.0.0.1:8000",
   }),
   endpoints: (builder) => ({
-    getRailway: builder.query<any, string>({
+    getStationCoord: builder.query<any, string>({
       query: () => ({
-        url: `/api/interpreter?data=[out:json];way[railway](55.5,37.0,56.0,38.0);out;`,
+        url: `/admin/stantioncoord`,
       })
     }),
   }),
 });
 
-export const { useGetRailwayQuery } = mapApi;
+export const { useGetStationCoordQuery } = mapApi;
