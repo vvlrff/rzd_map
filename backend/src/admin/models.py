@@ -86,22 +86,25 @@ class disl_hackaton(Base):
     WAGNUM: Mapped[int] = mapped_column(
         'WAGNUM',
         Integer,
+        nullable=True
     )
 
-    OPERDATE: Mapped[datetime] = mapped_column(
+    OPERDATE: Mapped[int] = mapped_column(
         'OPERDATE',
-        DateTime,
+        Integer,
         nullable=True
     )
 
     ST_ID_DISL: Mapped[int] = mapped_column(
         'ST_ID_DISL',
         Integer,
+        nullable=True
     )
 
     ST_ID_DEST: Mapped[int] = mapped_column(
         'ST_ID_DEST',
         Integer,
+        nullable=True
     )
 
     TRAIN_INDEX: Mapped[str] = mapped_column(
