@@ -18,7 +18,7 @@ const NewsItem = ({ news }: { news: any }) => {
             <div className={s.text}>img_text_ru: {news.image_text_ru}</div>
             <div>Страны: {news.country.length > 1 ? (
               <span>
-                {news.country.map(country => (
+                {news.country.map((country: any) => (
                   <span> {country}</span>
                 ))}
               </span>

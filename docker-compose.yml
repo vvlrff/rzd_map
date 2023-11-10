@@ -1,12 +1,11 @@
 version: "3.9"
 
-
 services:
   backend:
     build: ./backend
-    command: ["/backend/docker/app.sh"]
+    command: [ "/bin/sh", "/backend/docker/app.sh" ]
     ports:
-    - "8000:8000"
+      - "8000:8000"
     env_file:
       - ./backend/.env
     volumes:
@@ -17,11 +16,13 @@ services:
   frontend:
     build: ./frontend
     ports:
-    - "5173:5173"
+      - "3000:3000"
     volumes:
-    - ./frontend:/user/src/app
+      - ./frontend:/usr/src/app
+      - ./frontend:/usr/src/app/node_modules
+    command: npm run dev
     depends_on:
-    - backend
+      - backend
 
   pgadminhack:
     image: dpage/pgadmin4:latest
@@ -30,20 +31,18 @@ services:
     ports:
       - "8085:80"
     depends_on:
-    - dbhack
-
+      - dbhack
 
   dbhack:
     image: postgres:15
     container_name: dbhack
     command: -p 1221
     expose:
-        - 1221
+      - 1221
     env_file:
       - ./backend/.env
     volumes:
       - postgres_data:/var/lib/postgresql/data
-  
 
 volumes:
   postgres_data:

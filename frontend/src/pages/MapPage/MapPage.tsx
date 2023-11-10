@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import NewsCard from '../../components/NewsCard/NewsCard';
+import React from 'react';
+// import NewsCard from '../../components/NewsCard/NewsCard';
 import RussiaRailwayMap from '../../components/Map/RussiaRailwayMap';
 import s from './MapPage.module.scss';
 
 
 const MapPage: React.FC = () => {
-  const [selectedItem, setSelectedItem] = useState<any>(null);
+  // const [selectedItem, setSelectedItem] = useState<any>(null);
 
-  const handleOpenCard = (item: any) => {
-    setSelectedItem(item);
-  };
+  // const handleOpenCard = (item: any) => {
+  //   setSelectedItem(item);
+  // };
 
-  const handleCloseCard = () => {
-    setSelectedItem(null);
-  };
+  // const handleCloseCard = () => {
+  //   setSelectedItem(null);
+  // };
 
   return (
     <div className={s.container}>
