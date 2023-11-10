@@ -1,8 +1,8 @@
 """int_data
 
-Revision ID: 59c2a0d2ca56
+Revision ID: 49a98b6bfdd0
 Revises: 
-Create Date: 2023-11-10 23:25:25.697321
+Create Date: 2023-11-10 23:43:40.728229
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '59c2a0d2ca56'
+revision = '49a98b6bfdd0'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -36,8 +36,8 @@ def upgrade() -> None:
     )
     op.create_table('station_coords',
     sa.Column('ST_ID', sa.Integer(), autoincrement=True, nullable=False),
-    sa.Column('LATITUDE', sa.Integer(), nullable=True),
-    sa.Column('LONGITUDE', sa.Integer(), nullable=True),
+    sa.Column('LATITUDE', sa.Float(), nullable=True),
+    sa.Column('LONGITUDE', sa.Float(), nullable=True),
     sa.PrimaryKeyConstraint('ST_ID', name=op.f('pk_station_coords'))
     )
     # ### end Alembic commands ###

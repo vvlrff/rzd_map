@@ -4,7 +4,7 @@ from datetime import datetime
 from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable
 
 from sqlalchemy import (BigInteger, Boolean, Column, DateTime, ForeignKey, Integer, MetaData, SmallInteger, String,
-                        Table, UniqueConstraint, )
+                        Table, UniqueConstraint, Float)
 from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 from sqlalchemy.sql import func
@@ -33,15 +33,15 @@ class StantionCoord(Base):
         autoincrement=True
     )
 
-    LATITUDE: Mapped[int] = mapped_column(
+    LATITUDE: Mapped[float] = mapped_column(
         'LATITUDE',
-        Integer,
+        Float,
         nullable=True
     )
 
-    LONGITUDE: Mapped[int] = mapped_column(
+    LONGITUDE: Mapped[float] = mapped_column(
         'LONGITUDE',
-        Integer,
+        Float,
         nullable=True
     )
 
