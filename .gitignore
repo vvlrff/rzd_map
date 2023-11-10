@@ -1,5 +1,7 @@
 __pycache__/
-
+disl_hackaton.xlsx
+PEREGON_HACKATON.xlsx
+STATION_COORDS_HACKATON.xlsx
 *.mo
 cmake-build-*/
 *.iws
