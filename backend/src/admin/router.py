@@ -28,11 +28,10 @@ async def get_info_db(session: AsyncSession = Depends(get_async_session)):
 
 
 @router.get('/PEREGON_HACKATON')
-async def get_info_page(session: AsyncSession = Depends(get_async_session)):
-    ...
-    return JSONResponse([
-        {'START_CODE': {0: 2, 1: 6, 2: 8, 3: 12, 4: 15, 5: 16, 6: 24, 7: 29, 8: 30, 9: 31, 10: 33, 11: 33, 12: 34, 13: 40, 14: 44, 15: 48, 16: 49, 17: 56, 18: 65, 19: 68}, 'END_CODE': {0: 805, 1: 2, 2: 6, 3: 8, 4: 12, 5: 15, 6: 16, 7: 24, 8: 29, 9: 24, 10: 1373, 11: 31, 12: 1350, 13: 34, 14: 40, 15: 44, 16: 44, 17: 53, 18: 56, 19: 10288}, 'LEN': {0: 32, 1: 27, 2: 27, 3: 29, 4: 19, 5: 10, 6: 33, 7: 28, 8: 0, 9: 6, 10: 21, 11: 12, 12: 32, 13: 48, 14: 46, 15: 39, 16: 3, 17: 5, 18: 26, 19: 0}}
-    ])
+async def all_peregons(session: AsyncSession = Depends(get_async_session)):
+    support = Support(coonection=session)
+    data = await support.all_peregons()
+    return JSONResponse(data)
 
 
 @router.get('/disl_hackaton')
