@@ -1,10 +1,9 @@
 import dayjs from "dayjs"
 import { Link } from "react-router-dom"
-import { INews } from "../../models/INews"
 import s from "./NewsItem.module.scss"
 
 
-const NewsItem = ({ news }: { news: INews }) => {
+const NewsItem = ({ news }: { news: any }) => {
   return (
     <>
       <Link to={`/data/${news.id}`} className={s.link}>

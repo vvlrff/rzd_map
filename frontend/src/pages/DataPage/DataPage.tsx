@@ -5,7 +5,6 @@ import { Button } from '@mui/material';
 import { newsApi } from '../../services/newsApi';
 import { useState } from "react";
 import { elasticApi } from "../../services/elasticApi";
-import { INews } from "../../models/INews";
 import NewsItem from '../../components/NewsItem/NewsItem';
 import s from './DataPage.module.scss'
 
@@ -85,7 +84,7 @@ const DataPage = () => {
           <>
             {error && <h1>Ошибка</h1>}
             {loading ? <h1>Идет загрузка, подождите...</h1> : null}
-            {data.result?.map((item: INews) => (
+            {data.result?.map((item: any) => (
               <NewsItem news={item} key={item.id} />
             ))}
           </>

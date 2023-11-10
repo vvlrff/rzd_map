@@ -4,10 +4,10 @@ import MyMap from '../../components/Map/MyMap';
 import { newsApi } from '../../services/newsApi';
 import NewsCard from '../../components/NewsCard/NewsCard';
 import s from './MapPage.module.scss';
-import { INews } from '../../models/INews';
 
 const MapPage: React.FC = () => {
-  const { data: news } = newsApi.useGetAllNewsQuery('');
+  // const { data: news } = newsApi.useGetAllNewsQuery('');
+
   const [selectedItem, setSelectedItem] = useState<any>(null);
 
   const handleOpenCard = (item: any) => {
@@ -23,7 +23,7 @@ const MapPage: React.FC = () => {
 
       <div className={s.sidebar}>
 
-        {news ? (
+        {/* {news ? (
           <>
             {news.result?.map((item: INews) => {
               return (
@@ -38,7 +38,7 @@ const MapPage: React.FC = () => {
               );
             })}
           </>
-        ) : null}
+        ) : null} */}
 
         {/* {
           news?.map((item: INews) => {
@@ -62,11 +62,11 @@ const MapPage: React.FC = () => {
         <MyMap />
       </div>
 
-      {selectedItem && (
+      {/* {selectedItem && (
         <div className={s.overlay}>
           <NewsCard item={selectedItem} onClose={handleCloseCard} />
         </div>
-      )}
+      )} */}
 
     </div>
   );

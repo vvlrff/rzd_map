@@ -1,54 +1,30 @@
-import { MapContainer as Map, GeoJSON } from "react-leaflet";
+import React from "react";
+import { MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import "./NewsMap.scss";
 
-interface CountryFeature {
-  type: string;
-  properties: {
-    ADMIN: string;
-    color: string; 
-    text: string;
-  };
-}
-
-interface NewsMapProps {
-  countries: CountryFeature[];
-}
-
-const NewsMap: React.FC<NewsMapProps> = ({ countries }) => {
-  const countryStyle = {
-    fillColor: "white",
-    weight: 1,
-    color: "black",
-    fillOpacity: 1,
-  };
-
-  const mapStyle: React.CSSProperties = {
-    height: "calc(90vh - 80px)",
+const RussiaMap = () => {
+  const mapStyle = {
+    height: "calc(90vh + 30px)",
     display: "flex",
     alignItems: "stretch",
   };
 
-  const onEachCountry = (country: CountryFeature, layer: L.Layer) => {
-    layer.options.fillColor = country.properties.color;
-    const name = country.properties.ADMIN;
-    const text = country.properties.text;
-    layer.bindPopup(`<div style="font-weight: bold;">${name}</div> <div>${text}</div>`);
-  };
+  const center = [55.7558, 37.6176]; // Координаты центра России
+  const zoom = 6; // Начальный уровень масштабирования
 
   return (
-    <Map
+    <MapContainer
       style={mapStyle}
-      zoom={2}
-      center={[45, 0]}
+      center={center as [number, number]}
+      zoom={zoom}
+      maxZoom={10}
     >
-      <GeoJSON
-        style={countryStyle}
-        data={countries}
-        onEachFeature={onEachCountry}
+      <TileLayer
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
-    </Map>
+    </MapContainer>
   );
 };
 
-export default NewsMap;
+export default RussiaMap;
