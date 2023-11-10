@@ -1,5 +1,4 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { INews } from "../models/INews";
 
 
 export const newsApi = createApi({
@@ -26,7 +25,7 @@ export const newsApi = createApi({
         url: `/get/news_guardian`,
       })
     }),
-    getNewsById: builder.query<INews, number>({
+    getNewsById: builder.query<any, number>({
       query: (id) => ({
         url: `/get/news_guardian/${id}`,
       })

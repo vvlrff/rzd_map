@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
-import dayjs from 'dayjs';
-import MyMap from '../../components/Map/MyMap';
-import { newsApi } from '../../services/newsApi';
 import NewsCard from '../../components/NewsCard/NewsCard';
+import RussiaRailwayMap from '../../components/Map/RussiaRailwayMap';
 import s from './MapPage.module.scss';
 
-const MapPage: React.FC = () => {
-  // const { data: news } = newsApi.useGetAllNewsQuery('');
 
+const MapPage: React.FC = () => {
   const [selectedItem, setSelectedItem] = useState<any>(null);
 
   const handleOpenCard = (item: any) => {
@@ -22,44 +19,10 @@ const MapPage: React.FC = () => {
     <div className={s.container}>
 
       <div className={s.sidebar}>
-
-        {/* {news ? (
-          <>
-            {news.result?.map((item: INews) => {
-              return (
-                <div
-                  key={item.id}
-                  className={s.item}
-                  onClick={() => handleOpenCard(item)}
-                >
-                  <div className={s.title}>{item.title_ru}</div>
-                  <div>Дата: {dayjs(item.date).format('DD-MM-YYYY')}</div>
-                </div>
-              );
-            })}
-          </>
-        ) : null} */}
-
-        {/* {
-          news?.map((item: INews) => {
-            return (
-              <div
-                key={item.id}
-                className={s.item}
-                onClick={() => handleOpenCard(item)}
-              >
-                <div className={s.title}>{item.title_ru}</div>
-                <div>Дата: {dayjs(item.date).format('DD-MM-YYYY')}</div>
-              </div>
-            );
-          })
-        } */}
       </div>
 
-
-
       <div className={s.map}>
-        <MyMap />
+        <RussiaRailwayMap />
       </div>
 
       {/* {selectedItem && (
@@ -67,7 +30,6 @@ const MapPage: React.FC = () => {
           <NewsCard item={selectedItem} onClose={handleCloseCard} />
         </div>
       )} */}
-
     </div>
   );
 };
