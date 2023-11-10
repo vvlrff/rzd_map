@@ -1,10 +1,9 @@
 import dayjs from "dayjs"
 import { Link } from "react-router-dom"
-import { INews } from "../../models/INews"
 import s from "./NewsItem.module.scss"
 
 
-const NewsItem = ({ news }: { news: INews }) => {
+const NewsItem = ({ news }: { news: any }) => {
   return (
     <>
       <Link to={`/data/${news.id}`} className={s.link}>
@@ -19,7 +18,7 @@ const NewsItem = ({ news }: { news: INews }) => {
             <div className={s.text}>img_text_ru: {news.image_text_ru}</div>
             <div>Страны: {news.country.length > 1 ? (
               <span>
-                {news.country.map(country => (
+                {news.country.map((country: any) => (
                   <span> {country}</span>
                 ))}
               </span>

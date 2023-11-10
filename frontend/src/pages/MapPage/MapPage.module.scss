@@ -26,5 +26,7 @@
 
     .map {
         width: 70vw;
+        height: calc(90vh + 15px);
+        overflow: hidden;
     }
 }
