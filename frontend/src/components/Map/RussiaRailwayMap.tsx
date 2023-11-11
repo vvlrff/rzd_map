@@ -137,9 +137,6 @@ const RussiaRailwayMap: React.FC<RussiaRailwayMapProps> = ({ data }) => {
                         </>
                     );
 
-
-
-
                     return [...trainMarkers, trainPath];
                 })}
 

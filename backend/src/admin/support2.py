@@ -63,7 +63,7 @@ class Support2:
 
     
     async def one_train_with_time(self, train_index = '8810-413-8811', current_time = '2023-06-06 05:30:00'):
-        current_time_timestamp = int(time.mktime(datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S").timetuple()))
+        current_time_timestamp = int(time.mktime(datetime.datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S").timetuple()))
 
         stmt_one_train = select(TrainData.station_data).where(TrainData.train_index == train_index)
         stmt_one_train = await self.connect.execute(stmt_one_train)
@@ -80,7 +80,7 @@ class Support2:
         return total_data_one_train
         
     async def list_one_train_with_time(self, train_index = ['8810-413-8811'], current_time = '2023-06-06 05:30:00'):
-        current_time_timestamp = int(time.mktime(datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S").timetuple()))
+        current_time_timestamp = int(time.mktime(datetime.datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S").timetuple()))
         data = []
         for one_index in train_index:
             stmt_one_train = select(TrainData.station_data).where(TrainData.train_index == one_index)
