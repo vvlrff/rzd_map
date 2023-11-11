@@ -1,12 +1,11 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
 from .admin.router import router as router_admin
+
 
 app = FastAPI(
     title="HACK API"
 )
-
 
 
 origins = [
@@ -24,4 +23,3 @@ app.add_middleware(
 )
 
 app.include_router(router_admin)
-
