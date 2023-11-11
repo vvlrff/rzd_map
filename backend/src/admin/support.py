@@ -1,7 +1,7 @@
 import datetime
 import os
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import and_, delete, desc, insert, or_,  select,  func, update 
+from sqlalchemy import and_, delete, desc, distinct, insert, or_,  select,  func, update 
 from .models import *
 from .schemas import * 
 
@@ -30,19 +30,21 @@ class Support:
         return data
     
     async def trains_index(self):
-        stmt = select(disl_hackaton.id, disl_hackaton.TRAIN_INDEX).limit(50)
+        stmt = select(distinct(disl_hackaton.TRAIN_INDEX)).limit(50)
         res = await self.connect.execute(stmt)
         res = res.fetchall()
         list_train_index = []
         data = []
         for i in res:
-            list_train_index.append(i[1])
+            list_train_index.append(i[0])
         data.append({
                 'TRAIN_INDEXS':list_train_index
         })
 
-        # # print(data)
+        print(data)
         return data
+
+
 
 
 
