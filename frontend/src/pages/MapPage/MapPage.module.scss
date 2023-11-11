@@ -13,7 +13,7 @@
         .itemContainer {
             margin: 0 auto;
             margin-top: 25px;
-            width: 75%;
+            width: 85%;
         }
 
         .item {
@@ -41,9 +41,15 @@
             }
 
             .content {
-                p {
-                    font-weight: bold;
-                    font-size: 20px;
+                .title {
+                    margin: 5px 0;
+                    font-weight: 400;
+                    font-size: 16px;
+
+                    span {
+                        font-weight: 600;
+                        font-size: 18px;
+                    }
                 }
             }
 

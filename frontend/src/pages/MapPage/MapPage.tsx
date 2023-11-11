@@ -64,26 +64,34 @@ const MapPage: React.FC = () => {
                                                 >
                                                     <div className={s.content}>
                                                         <p className={s.title}>
-                                                            {" "}
                                                             Номер поезда: №
-                                                            {item.TRAIN_INDEXS}
+                                                            <span>
+                                                                {
+                                                                    item.TRAIN_INDEXS
+                                                                }
+                                                            </span>
                                                         </p>
                                                         <p className={s.title}>
-                                                            {" "}
-                                                            Станций в маршруте:
-                                                            {item.PATH_LEN}
+                                                            Станций в маршруте:{" "}
+                                                            <span>
+                                                                {item.PATH_LEN}
+                                                            </span>
                                                         </p>
                                                         <p className={s.title}>
-                                                            {" "}
-                                                            Начальная станция:
-                                                            {
-                                                                item.FIRST_STATIONS
-                                                            }
+                                                            Начальная станция:{" "}
+                                                            <span>
+                                                                {
+                                                                    item.FIRST_STATIONS
+                                                                }
+                                                            </span>
                                                         </p>
                                                         <p className={s.title}>
-                                                            {" "}
-                                                            Конечная станция:
-                                                            {item.LAST_STATIONS}
+                                                            Конечная станция:{" "}
+                                                            <span>
+                                                                {
+                                                                    item.LAST_STATIONS
+                                                                }
+                                                            </span>
                                                         </p>
                                                     </div>
                                                     <div className={s.svg}>
