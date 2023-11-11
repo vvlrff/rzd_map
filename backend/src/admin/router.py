@@ -8,7 +8,7 @@ from .schemas import *
 from .models import *
 from .support import Support
 from .support2 import Support2
-
+# 
 router = APIRouter(
     prefix='/admin',
     tags=['admin']
@@ -72,6 +72,14 @@ async def all_peregons(request_data: TrainIndexRequest, session: AsyncSession = 
     support = Support2(coonection=session)
 
     data = await support.one_train_without_time(train_index=request_data.train_index)
+    return JSONResponse(data)
+
+
+@router.post('/List_Support_2')
+async def list_all_peregons(request_data: TrainIndexRequest, session: AsyncSession = Depends(get_async_session)):
+    support = Support2(coonection=session)
+
+    data = await support.list_one_train_without_time(train_index=request_data.train_index)
     return JSONResponse(data)
 
 @router.get('/add_data_train_data')
