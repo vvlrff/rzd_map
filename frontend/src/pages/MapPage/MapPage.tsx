@@ -10,7 +10,6 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import s from "./MapPage.module.scss";
 
-
 const MapPage: React.FC = () => {
     const { data: trainIdexesData } = mapApi.useGetTrainIndexesQuery("");
     const [clickItem, setClickItem] = useState<string[]>([]);
@@ -20,11 +19,14 @@ const MapPage: React.FC = () => {
     //     mapApi.usePostTrainWagonDataMutation();
     // const [support2, { data: dataSupport2, isLoading: isLoadingSupport2 }] =
     //     mapApi.usePostSupport2Mutation();
-    const [listSupport2, { data: datalistSupport2, isLoading: isLoadingListSupport2 }] =
-        mapApi.usePostListSupport2Mutation();
-    const [listTrainWagon, { data: datalistTrainWagon, isLoading: isLoadingListTrainWagon }] =
-        mapApi.usePostListTrainWagonDataMutation();
-
+    const [
+        listSupport2,
+        { data: datalistSupport2, isLoading: isLoadingListSupport2 },
+    ] = mapApi.usePostListSupport2Mutation();
+    const [
+        listTrainWagon,
+        { data: datalistTrainWagon, isLoading: isLoadingListTrainWagon },
+    ] = mapApi.usePostListTrainWagonDataMutation();
 
     useEffect(() => {
         const fetchDataIfNeeded = async () => {
@@ -113,26 +115,62 @@ const MapPage: React.FC = () => {
                                 {trainIdexesData &&
                                     trainIdexesData?.map(
                                         (item: any, key: number) => {
-                                            const isItemSelected = clickItem.includes(item["TRAIN_INDEXS"])
+                                            const isItemSelected =
+                                                clickItem.includes(
+                                                    item["TRAIN_INDEXS"]
+                                                );
 
                                             return (
-                                                <motion.div
+                                                <Box
+                                                    component={motion.div}
                                                     className={s.item}
-                                                    onClick={() => {
-                                                        setClickItem((prevClickItem) => {
-                                                            if (isItemSelected) {
-                                                                // Если элемент уже выбран, уберите его из массива
-                                                                return prevClickItem.filter(
-                                                                    (selectedItem) =>
-                                                                        selectedItem !== item["TRAIN_INDEXS"]
-                                                                );
-                                                            } else {
-                                                                // В противном случае добавьте его в массив
-                                                                return [...prevClickItem, item["TRAIN_INDEXS"]]
-                                                            }
-                                                        });
-                                                    }}
+                                                    sx={
+                                                        isItemSelected
+                                                            ? {
+                                                                  backgroundColor:
+                                                                      "#eb5525 !important",
+                                                                  color: "#fff !important",
 
+                                                                  "&:hover": {
+                                                                      boxShadow:
+                                                                          "0 0 4px 4px #7036bd !important",
+                                                                  },
+
+                                                                  "&:active": {
+                                                                      backgroundColor:
+                                                                          "black !important",
+                                                                  },
+                                                              }
+                                                            : {}
+                                                    }
+                                                    onClick={() => {
+                                                        setClickItem(
+                                                            (prevClickItem) => {
+                                                                if (
+                                                                    isItemSelected
+                                                                ) {
+                                                                    // Если элемент уже выбран, уберите его из массива
+                                                                    return prevClickItem.filter(
+                                                                        (
+                                                                            selectedItem
+                                                                        ) =>
+                                                                            selectedItem !==
+                                                                            item[
+                                                                                "TRAIN_INDEXS"
+                                                                            ]
+                                                                    );
+                                                                } else {
+                                                                    // В противном случае добавьте его в массив
+                                                                    return [
+                                                                        ...prevClickItem,
+                                                                        item[
+                                                                            "TRAIN_INDEXS"
+                                                                        ],
+                                                                    ];
+                                                                }
+                                                            }
+                                                        );
+                                                    }}
                                                     key={key}
                                                     variants={itemV}
                                                 >
@@ -181,7 +219,7 @@ const MapPage: React.FC = () => {
                                                             <path d="M8.415,82.195c3.737,0.006,7.474,0.01,11.21,0c0.712,5.783,2.349,3.803,8.157,3.818c5.587,0.016,8.772,2.355,9.24-3.812  c4.48,0,8.96,0,13.44,0c8.959,0,17.92,0,26.88,0c4.479,0,8.96-0.002,13.439-0.002c5.121,0,9.055-2.467,8.995,3.754  c-20.64-0.074-40.313,5.732-60.593,5.729c-9.963-0.002-19.926,0.006-29.889,0c-4.087-0.002-8.546,2.189-8.557-2.84  C0.723,81.471,7.845,90.809,8.415,82.195C12.152,82.201,8.332,83.457,8.415,82.195z" />
                                                         </svg>
                                                     </div>
-                                                </motion.div>
+                                                </Box>
                                             );
                                         }
                                     )}
@@ -190,7 +228,9 @@ const MapPage: React.FC = () => {
                     </Box>
 
                     <div className={s.map}>
-                        <RussiaRailwayMap data={datalistTrainWagon || datalistSupport2} />
+                        <RussiaRailwayMap
+                            data={datalistTrainWagon || datalistSupport2}
+                        />
                     </div>
                 </>
             )}
