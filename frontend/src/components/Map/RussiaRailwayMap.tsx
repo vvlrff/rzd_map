@@ -108,6 +108,16 @@ const RussiaRailwayMap: React.FC<RussiaRailwayMapProps> = ({ data }) => {
                                 >
                                     <Popup>
                                         <>
+                                            <img
+                                                src="/trainM2.webp"
+                                                style={{
+                                                    display: "block",
+                                                    margin: "0 auto",
+                                                    width: "100px",
+                                                    height: "100px",
+                                                }}
+                                                alt=""
+                                            />
                                             <p>
                                                 ID Станции:{" "}
                                                 <span
@@ -126,6 +136,13 @@ const RussiaRailwayMap: React.FC<RussiaRailwayMapProps> = ({ data }) => {
                                                     }}
                                                 >
                                                     {station.WAGON_AMOUNT}
+                                                </span>
+                                                <span>
+                                                    {"("}
+                                                    {station.ST_ID_DISL_WAGNUM.join(
+                                                        ", "
+                                                    )}
+                                                    {")"}
                                                 </span>
                                             </p>
                                             <p>
@@ -162,7 +179,6 @@ const RussiaRailwayMap: React.FC<RussiaRailwayMapProps> = ({ data }) => {
                                                     )}
                                                 </p>
                                             )}
-
                                         </>
                                     </Popup>
                                 </Marker>
@@ -173,13 +189,22 @@ const RussiaRailwayMap: React.FC<RussiaRailwayMapProps> = ({ data }) => {
                         <>
                             {train.station_data &&
                                 train.station_data.reduce(
-                                    (paths: JSX.Element[], station: stationTrainData, index: number, arr: stationTrainData[]) => {
-                                        const currentCoords: LatLngExpression = [
-                                            station?.LATITUDE || 0,
-                                            station?.LONGITUDE || 0,
-                                        ];
+                                    (
+                                        paths: JSX.Element[],
+                                        station: stationTrainData,
+                                        index: number,
+                                        arr: stationTrainData[]
+                                    ) => {
+                                        const currentCoords: LatLngExpression =
+                                            [
+                                                station?.LATITUDE || 0,
+                                                station?.LONGITUDE || 0,
+                                            ];
 
-                                        if (currentCoords[0] === 0 && currentCoords[1] === 0) {
+                                        if (
+                                            currentCoords[0] === 0 &&
+                                            currentCoords[1] === 0
+                                        ) {
                                             return paths;
                                         }
 
@@ -188,31 +213,44 @@ const RussiaRailwayMap: React.FC<RussiaRailwayMapProps> = ({ data }) => {
 
                                         while (
                                             nextStation &&
-                                            (nextStation.LATITUDE === null || nextStation.LONGITUDE === null || nextStation.LATITUDE === 0 || nextStation.LONGITUDE === 0)
+                                            (nextStation.LATITUDE === null ||
+                                                nextStation.LONGITUDE ===
+                                                    null ||
+                                                nextStation.LATITUDE === 0 ||
+                                                nextStation.LONGITUDE === 0)
                                         ) {
                                             nextStationIndex++;
                                             nextStation = arr[nextStationIndex];
                                         }
 
-                                        const nextCoords: LatLngExpression = nextStation
-                                            ? [
-                                                nextStation.LATITUDE || 0,
-                                                nextStation.LONGITUDE || 0,
-                                            ]
-                                            : currentCoords;
+                                        const nextCoords: LatLngExpression =
+                                            nextStation
+                                                ? [
+                                                      nextStation.LATITUDE || 0,
+                                                      nextStation.LONGITUDE ||
+                                                          0,
+                                                  ]
+                                                : currentCoords;
 
                                         const path = (
                                             <Polyline
                                                 key={index}
-                                                positions={[currentCoords, nextCoords]}
-                                                color={station?.IS_GONE ? "green" : "black"}
+                                                positions={[
+                                                    currentCoords,
+                                                    nextCoords,
+                                                ]}
+                                                color={
+                                                    station?.IS_GONE
+                                                        ? "green"
+                                                        : "black"
+                                                }
                                             />
                                         );
 
                                         return [...paths, path];
-                                    }, []
-                                )
-                            }
+                                    },
+                                    []
+                                )}
                         </>
                     );
 
