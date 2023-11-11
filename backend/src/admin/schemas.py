@@ -1,6 +1,4 @@
 from pydantic import BaseModel
-from typing import Any, Dict
-from fastapi import UploadFile, File
 
 
 class TrainIndexRequest(BaseModel):

@@ -1,13 +1,7 @@
 from __future__ import annotations
-
-from datetime import datetime
-from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable
-
-from sqlalchemy import (BigInteger, Boolean, Column, DateTime, ForeignKey, Integer, MetaData, SmallInteger, String,
-                        Table, UniqueConstraint, Float,)
-from sqlalchemy.dialects.postgresql import ARRAY, JSONB
+from sqlalchemy import (Integer, MetaData, String, Float,)
+from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
-from sqlalchemy.sql import func
 
 
 class Base(DeclarativeBase):

@@ -1,12 +1,10 @@
 import pickle
 from fastapi import APIRouter, Depends
 from fastapi.responses import JSONResponse
-from sqlalchemy import distinct, insert, select
+from sqlalchemy import insert
 from sqlalchemy.ext.asyncio import AsyncSession
 from ..datebase import get_async_session
-from fastapi import UploadFile, File
 from .schemas import *
-import os
 from .models import *
 from .support import Support
 from .support2 import Support2
