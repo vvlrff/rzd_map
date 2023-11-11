@@ -16,6 +16,30 @@
             width: 75%;
         }
 
+        .datetime {
+            background-color: #fff;
+
+            input {
+                color: #121212;
+            }
+            
+            .MuiInput-underline:before {
+                border-bottom-color: "white",
+            }
+
+            .MuiInput-underline:after {
+                border-bottom-color: "white",
+            }
+
+            .MuiInput-input {
+                color: "white",
+            }
+
+            .MuiInputLabel-root {
+                color: "white",
+            }
+        }
+
         .item {
             display: flex;
             align-items: center;
