@@ -30,7 +30,7 @@ const MapPage: React.FC = () => {
             opacity: 1,
         },
     };
-
+console.log(trainIdexesData)
     return (
         <div className={s.container}>
             {isLoading ? (
