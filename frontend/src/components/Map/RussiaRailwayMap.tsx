@@ -25,6 +25,7 @@ interface stationTrainData {
     OPERDATE: number;
     ST_ID_DISL_WAGNUM: number[];
     WAGON_AMOUNT: number;
+    IS_GONE: boolean;
 }
 
 interface StationData {
@@ -73,24 +74,44 @@ const RussiaRailwayMap: React.FC<RussiaRailwayMapProps> = ({ data }) => {
             />
 
             {stationCoordData &&
-                stationCoordData.map((station: StationData) => (
-                    <Marker
-                        key={station.ST_ID}
-                        position={[station.LATITUDE, station.LONGITUDE]}
-                        icon={trailSignIcon}
-                    >
-                        {/* Можно добавить Popup, если необходимо */}
-                        <Popup>
-                            {`Станция ID: ${station.ST_ID}`}
-                            {
-                                <>
-                                    <p>p tag test</p>
-                                    <p> ANOTHER tag test</p>
-                                </>
-                            }
-                        </Popup>
-                    </Marker>
-                ))}
+                stationCoordData.map((station: stationTrainData) => {
+                    const date = new Date(station.OPERDATE);
+                    const hours = date.getHours();
+                    const minutes = date.getMinutes();
+                    const day = date.getDate();
+                    const month = date.getMonth() + 1;
+                    return (
+                        <Marker
+                            key={station.ST_ID_DISL}
+                            position={[station.LATITUDE, station.LONGITUDE]}
+                            icon={trailSignIcon}
+                        >
+                            {/* Можно добавить Popup, если необходимо */}
+                            <Popup>
+                                {
+                                    <>
+                                        <p>ID Станции: {station.ST_ID_DISL}</p>
+                                        <p>
+                                            Кол-во вагонов:{" "}
+                                            {station.WAGON_AMOUNT}
+                                        </p>
+                                        <p>
+                                            Время прибытия
+                                            <span style={{ display: "block" }}>
+                                                {`${hours}:${minutes} --- ${day}.${month}`}
+                                            </span>
+                                        </p>
+                                        <p>
+                                            {station.IS_GONE
+                                                ? "Посещено"
+                                                : "Не посещено"}
+                                        </p>
+                                    </>
+                                }
+                            </Popup>
+                        </Marker>
+                    );
+                })}
 
             {data ? (
                 data.map((train: TrainData) => (

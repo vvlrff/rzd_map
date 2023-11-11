@@ -24,13 +24,16 @@ const Hero = () => {
                     alignItems="center"
                     gap={2}
                 >
+                    <Typography align="center" variant="h2" color="primary">
+                        ЖД карта желаний
+                    </Typography>
                     <Typography
                         align="center"
                         variant="h2"
                         color="primary"
                         gutterBottom
                     >
-                        ЖД карта желаний
+                        Создание карты движения поездов
                     </Typography>
                     <Typography
                         align="center"
@@ -38,7 +41,8 @@ const Hero = () => {
                         variant="h5"
                         gutterBottom
                     >
-                        Создание карты движения поездов
+                        Сервис для визуализации движения поезда в режиме
+                        реального времени
                     </Typography>
                     <Link to="map">
                         <Button

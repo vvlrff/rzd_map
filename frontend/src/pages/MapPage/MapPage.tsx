@@ -18,15 +18,15 @@ const MapPage: React.FC = () => {
             scale: 1,
             transition: {
                 delayChildren: 0.3,
-                staggerChildren: 0.2,
+                staggerChildren: 0.3,
             },
         },
     };
 
     const itemV = {
-        hidden: { y: 20, opacity: 0 },
+        hidden: { x: "-120", opacity: 0 },
         visible: {
-            y: 0,
+            x: 0,
             opacity: 1,
         },
     };
@@ -56,7 +56,7 @@ const MapPage: React.FC = () => {
                                     trainIdexesData[0]["TRAIN_INDEXS"]?.map(
                                         (item: any, key: number) => {
                                             return (
-                                                <div
+                                                <motion.div
                                                     className={s.item}
                                                     onClick={() => asdasd(item)}
                                                     key={key}
@@ -81,7 +81,7 @@ const MapPage: React.FC = () => {
                                                             <path d="M8.415,82.195c3.737,0.006,7.474,0.01,11.21,0c0.712,5.783,2.349,3.803,8.157,3.818c5.587,0.016,8.772,2.355,9.24-3.812  c4.48,0,8.96,0,13.44,0c8.959,0,17.92,0,26.88,0c4.479,0,8.96-0.002,13.439-0.002c5.121,0,9.055-2.467,8.995,3.754  c-20.64-0.074-40.313,5.732-60.593,5.729c-9.963-0.002-19.926,0.006-29.889,0c-4.087-0.002-8.546,2.189-8.557-2.84  C0.723,81.471,7.845,90.809,8.415,82.195C12.152,82.201,8.332,83.457,8.415,82.195z" />
                                                         </svg>
                                                     </div>
-                                                </div>
+                                                </motion.div>
                                             );
                                         }
                                     )}
