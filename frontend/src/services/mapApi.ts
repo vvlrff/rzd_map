@@ -18,7 +18,7 @@ export const mapApi = createApi({
       })
     }),
     postTrainWagonData: builder.mutation<any, string>({
-      query: (train_index) => ({
+      query: (train_index: string) => ({
         url: `/admin/Support_2`,
         method: "POST",
         body: {
