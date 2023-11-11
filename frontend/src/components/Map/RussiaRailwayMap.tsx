@@ -109,12 +109,11 @@ const RussiaRailwayMap: React.FC<RussiaRailwayMapProps> = ({ data }) => {
                                     <Popup>
                                         <>
                                             <img
-                                                src="/trainM2.webp"
+                                                src="/train.webp"
                                                 style={{
                                                     display: "block",
                                                     margin: "0 auto",
-                                                    width: "100px",
-                                                    height: "100px",
+                                                    width: "300px",
                                                 }}
                                                 alt=""
                                             />
@@ -138,7 +137,7 @@ const RussiaRailwayMap: React.FC<RussiaRailwayMapProps> = ({ data }) => {
                                                     {station.WAGON_AMOUNT}
                                                 </span>
                                                 <span>
-                                                    {"("}
+                                                    {" ("}
                                                     {station.ST_ID_DISL_WAGNUM.join(
                                                         ", "
                                                     )}
@@ -234,6 +233,7 @@ const RussiaRailwayMap: React.FC<RussiaRailwayMapProps> = ({ data }) => {
 
                                         const path = (
                                             <Polyline
+                                                
                                                 key={index}
                                                 positions={[
                                                     currentCoords,
