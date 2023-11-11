@@ -45,7 +45,7 @@ const MapPage: React.FC = () => {
             opacity: 1,
         },
     };
-
+    console.log(trainIdexesData);
     return (
         <div className={s.container}>
             {isLoading ? (
@@ -81,7 +81,7 @@ const MapPage: React.FC = () => {
 
 
                                 {trainIdexesData &&
-                                    trainIdexesData[0]["TRAIN_INDEXS"]?.map(
+                                    trainIdexesData?.map(
                                         (item: any, key: number) => {
                                             return (
                                                 <motion.div
@@ -93,10 +93,30 @@ const MapPage: React.FC = () => {
                                                     key={key}
                                                     variants={itemV}
                                                 >
-                                                    <p className={s.title}>
-                                                        {" "}
-                                                        Поезд №{item}
-                                                    </p>
+                                                    <div className={s.content}>
+                                                        <p className={s.title}>
+                                                            {" "}
+                                                            Номер поезда: №
+                                                            {item.TRAIN_INDEXS}
+                                                        </p>
+                                                        <p className={s.title}>
+                                                            {" "}
+                                                            Станций в маршруте:
+                                                            {item.PATH_LEN}
+                                                        </p>
+                                                        <p className={s.title}>
+                                                            {" "}
+                                                            Начальная станция:
+                                                            {
+                                                                item.FIRST_STATIONS
+                                                            }
+                                                        </p>
+                                                        <p className={s.title}>
+                                                            {" "}
+                                                            Конечная станция:
+                                                            {item.LAST_STATIONS}
+                                                        </p>
+                                                    </div>
                                                     <div className={s.svg}>
                                                         <svg
                                                             xmlns="http://www.w3.org/2000/svg"

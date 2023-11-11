@@ -97,7 +97,7 @@ const MyThemeProvider: FC<IThemeProvider> = ({ children }) => {
     });
     theme = responsiveFontSizes(theme);
 
-    console.log(theme);
+    // console.log(theme);
 
     return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 };
