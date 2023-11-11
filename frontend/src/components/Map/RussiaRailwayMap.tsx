@@ -109,7 +109,7 @@ const RussiaRailwayMap: React.FC<RussiaRailwayMapProps> = ({ data }) => {
                                     <Popup>
                                         <>
                                             <p>
-                                                ID Станции:
+                                                ID Станции:{" "}
                                                 <span
                                                     style={{
                                                         fontWeight: 600,
@@ -129,7 +129,7 @@ const RussiaRailwayMap: React.FC<RussiaRailwayMapProps> = ({ data }) => {
                                                 </span>
                                             </p>
                                             <p>
-                                                Время прибытия
+                                                Время прибытия:
                                                 <span
                                                     style={{
                                                         display: "block",
