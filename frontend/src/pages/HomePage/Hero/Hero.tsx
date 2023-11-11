@@ -2,6 +2,7 @@ import { Box, Button, Typography } from "@mui/material";
 import s from "./Hero.module.scss";
 import Container from "../../../components/Container/Container";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
     return (
@@ -11,6 +12,7 @@ const Hero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
+            zIndex={2}
         >
             <img className={s.img} src="/mainTrain.webp" alt="" />
             <Container>
@@ -38,9 +40,15 @@ const Hero = () => {
                     >
                         Отслеживайте местоположение поезда без проблем
                     </Typography>
-                    <Button color="secondary" size="large" variant="contained">
-                        <span>Начать</span>
-                    </Button>
+                    <Link to="map">
+                        <Button
+                            color="secondary"
+                            size="large"
+                            variant="contained"
+                        >
+                            <span>Начать</span>
+                        </Button>
+                    </Link>
                 </Box>
             </Container>
         </Box>
