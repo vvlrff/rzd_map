@@ -1,11 +1,12 @@
 from fastapi import APIRouter, Depends
 from fastapi.responses import JSONResponse
+from sqlalchemy import distinct, insert, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from ..datebase import get_async_session
 from fastapi import UploadFile, File
 from .schemas import *
 import os
-
+from .models import *
 from .support import Support
 from .support2 import Support2
 
@@ -70,6 +71,46 @@ async def trains_index(session: AsyncSession = Depends(get_async_session)):
 @router.post('/Support_2')
 async def all_peregons(request_data: TrainIndexRequest, session: AsyncSession = Depends(get_async_session)):
     support = Support2(coonection=session)
+
     data = await support.all_peregons(train_index=request_data.train_index)
     return JSONResponse(data)
 
+
+@router.get('/add_data_train_data')
+async def add_data_train_data(session: AsyncSession = Depends(get_async_session)):
+
+    support = Support2(coonection=session)
+    stmt_all = (
+        select(distinct(disl_hackaton.TRAIN_INDEX))
+    )
+    data_train = await session.execute(stmt_all)
+    await session.commit()
+    raz = 1
+    for i in data_train:
+        print(f'И {raz} раз')
+        data = await support.all_peregons(train_index=i[0])
+        stmt = (
+        insert(TrainData)
+        .values(
+                train_index = data[0]['train_index'],
+                station_data = data[0]['station_data'],
+        )
+        )
+        await session.execute(stmt)
+        await session.commit()
+        raz += 1
+
+
+    # support = Support2(coonection=session)
+    # data = await support.all_peregons(train_index=train_index)
+    # stmt = (
+    #     insert(TrainData)
+    #     .values(
+    #         train_index = data[0]['train_index'],
+    #         station_data = data[0]['station_data'],
+    # )
+    # )
+    # await session.execute(stmt)
+    # await session.commit()
+
+    # return JSONResponse(data)
