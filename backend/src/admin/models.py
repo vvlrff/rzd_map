@@ -4,8 +4,8 @@ from datetime import datetime
 from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable
 
 from sqlalchemy import (BigInteger, Boolean, Column, DateTime, ForeignKey, Integer, MetaData, SmallInteger, String,
-                        Table, UniqueConstraint, Float)
-from sqlalchemy.dialects.postgresql import ARRAY
+                        Table, UniqueConstraint, Float,)
+from sqlalchemy.dialects.postgresql import ARRAY, JSONB
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 from sqlalchemy.sql import func
 
@@ -111,4 +111,32 @@ class disl_hackaton(Base):
         'TRAIN_INDEX',
         String,
         nullable=True
+    )
+
+class TrainData(Base):
+    __tablename__ = 'train_data'
+
+    id: Mapped[int] = mapped_column(
+        'id',
+        Integer,
+        primary_key=True,
+        autoincrement=True
+    )
+
+    train_index: Mapped[str] = mapped_column(
+        'train_index',
+        String,
+        nullable=False
+    )
+
+    station_data: Mapped[list] = mapped_column(
+        'station_data',
+        JSONB,
+        nullable=False
+    )
+
+    wagon_amount: Mapped[int] = mapped_column(
+        'wagon_amount',
+        Integer,
+        nullable=False
     )
