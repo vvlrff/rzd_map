@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import RussiaRailwayMap from "../../components/Map/RussiaRailwayMap";
 import { mapApi } from "../../services/mapApi";
-import { Box, Button, Divider } from "@mui/material";
+import { Box } from "@mui/material";
 import Loader from "../../components/Loader/Loader";
 import { motion } from "framer-motion";
 import dayjs from "dayjs";
@@ -62,7 +62,7 @@ const MapPage: React.FC = () => {
 
     return (
         <div className={s.container}>
-            {isLoading ? (
+            {isLoading || isLoadingSupport2 ? (
                 <>
                     <Loader></Loader>
                 </>
