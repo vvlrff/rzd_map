@@ -51,8 +51,8 @@ const RussiaRailwayMap: React.FC<RussiaRailwayMapProps> = ({ data }) => {
         alignItems: "stretch",
     };
 
-    const center = [55.7558, 37.6176]; // Координаты центра России
-    const zoom = 6; // Начальный уровень масштабирования
+    const center = [53.7558, 53.6176]; // Координаты центра России
+    const zoom = 4.5; // Начальный уровень масштабирования
 
     return (
         <MapContainer
