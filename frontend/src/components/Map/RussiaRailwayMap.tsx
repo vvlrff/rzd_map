@@ -28,12 +28,6 @@ interface stationTrainData {
     IS_GONE: boolean;
 }
 
-interface StationData {
-    ST_ID: number;
-    LATITUDE: number;
-    LONGITUDE: number;
-}
-
 const RussiaRailwayMap: React.FC<RussiaRailwayMapProps> = ({ data }) => {
     const { data: stationCoordData } = mapApi.useGetStationCoordQuery("");
 
@@ -81,11 +75,11 @@ const RussiaRailwayMap: React.FC<RussiaRailwayMapProps> = ({ data }) => {
                                 station.LATITUDE !== null && station.LONGITUDE !== null
                         )
                         .map((station) => {
-                            const date = new Date(station.OPERDATE);
-                            const hours = date.getHours();
-                            const minutes = date.getMinutes();
-                            const day = date.getDate();
-                            const month = date.getMonth() + 1;
+                            const date = new Date(station.OPERDATE * 1000);
+                            const hours = ('0' + date.getHours()).slice(-2);
+                            const minutes = ('0' + date.getMinutes()).slice(-2);
+                            const day = ('0' + date.getDate()).slice(-2);
+                            const month = ('0' + (date.getMonth() + 1)).slice(-2);
 
                             return (
                                 <Marker
@@ -93,7 +87,6 @@ const RussiaRailwayMap: React.FC<RussiaRailwayMapProps> = ({ data }) => {
                                     position={[station.LATITUDE, station.LONGITUDE]}
                                     icon={trailSignIcon}
                                 >
-                                    {/* Можно добавить Popup, если необходимо */}
                                     <Popup>
                                         <>
                                             <p>ID Станции: {station.ST_ID_DISL}</p>
