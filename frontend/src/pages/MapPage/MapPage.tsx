@@ -129,11 +129,6 @@ const MapPage: React.FC = () => {
                                                             <span>
                                                                 {item.PATH_LEN}
                                                             </span>
-                                                            <span>
-                                                                {"("}
-                                                                {item.ST_ID_DISL_WAGNUM ? item.ST_ID_DISL_WAGNUM.join(", ") : ""}
-                                                                {")"}
-                                                            </span>
                                                         </p>
                                                         <p className={s.title}>
                                                             Начальная станция:{" "}

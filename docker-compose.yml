@@ -3,7 +3,7 @@ version: "3.9"
 services:
   backend:
     build: ./backend
-    command: [ "/bin/sh", "/backend/docker/app.sh" ]
+    command: [ "/bin/sh", "-c", "chmod +x /backend/docker/app.sh && /backend/docker/app.sh" ]    
     ports:
       - "8000:8000"
     env_file:
@@ -13,25 +13,25 @@ services:
     depends_on:
       - dbhack
 
-  frontend:
-    build: ./frontend
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./frontend:/usr/src/app
-      - ./frontend:/usr/src/app/node_modules
-    command: npm run dev
-    depends_on:
-      - backend
+  # frontend:
+  #   build: ./frontend
+  #   ports:
+  #     - "3000:3000"
+  #   volumes:
+  #     - ./frontend:/usr/src/app
+  #     - ./frontend:/usr/src/app/node_modules
+  #   command: npm run dev
+  #   depends_on:
+  #     - backend
 
-  pgadminhack:
-    image: dpage/pgadmin4:latest
-    env_file:
-      - ./backend/.env
-    ports:
-      - "8085:80"
-    depends_on:
-      - dbhack
+  # pgadminhack:
+  #   image: dpage/pgadmin4:latest
+  #   env_file:
+  #     - ./backend/.env
+  #   ports:
+  #     - "8085:80"
+  #   depends_on:
+  #     - dbhack
 
   dbhack:
     image: postgres:15
@@ -46,5 +46,4 @@ services:
 
 volumes:
   postgres_data:
-  client:
-  server:
+

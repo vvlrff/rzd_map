@@ -12,5 +12,5 @@ class List_TrainIndexRequestCurrentData(BaseModel):
     train_index: list
     current_data: str
 
-class TrainIndexRequest(BaseModel):
+class ListTrainIndexRequest(BaseModel):
     train_index: list

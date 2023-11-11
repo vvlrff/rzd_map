@@ -76,7 +76,7 @@ async def all_peregons(request_data: TrainIndexRequest, session: AsyncSession = 
 
 
 @router.post('/List_Support_2')
-async def list_all_peregons(request_data: TrainIndexRequest, session: AsyncSession = Depends(get_async_session)):
+async def list_all_peregons(request_data: ListTrainIndexRequest, session: AsyncSession = Depends(get_async_session)):
     support = Support2(coonection=session)
 
     data = await support.list_one_train_without_time(train_index=request_data.train_index)
