@@ -10,21 +10,39 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import s from "./MapPage.module.scss";
 
+interface TrainIndexData {
+    TRAIN_INDEXS: string;
+    PATH_LEN: number;
+    FIRST_STATIONS: number;
+    LAST_STATIONS: number;
+}
 
 const MapPage: React.FC = () => {
     const { data: trainIdexesData } = mapApi.useGetTrainIndexesQuery("");
     const [clickItem, setClickItem] = useState<string[]>([]);
     const [selectedDateTime, setSelectedDateTime] = useState<Date | null>(null);
+    const [filterValue, setFilterValue] = useState('');
+    const [filterTrainIdexesData, setFilterTrainIdexesData] = useState<TrainIndexData[]>([]);
 
-    // const [trainWagon, { data, isLoading }] =
-    //     mapApi.usePostTrainWagonDataMutation();
-    // const [support2, { data: dataSupport2, isLoading: isLoadingSupport2 }] =
-    //     mapApi.usePostSupport2Mutation();
     const [listSupport2, { data: datalistSupport2, isLoading: isLoadingListSupport2 }] =
         mapApi.usePostListSupport2Mutation();
     const [listTrainWagon, { data: datalistTrainWagon, isLoading: isLoadingListTrainWagon }] =
         mapApi.usePostListTrainWagonDataMutation();
 
+    const filterCards = (value: string, data: TrainIndexData[] | undefined) => {
+        return data
+            ? data.filter(item => item.TRAIN_INDEXS && item.TRAIN_INDEXS.includes(value))
+            : [];
+    };
+
+    useEffect(() => {
+        const Debounce = setTimeout(() => {
+            const filteredCards = filterCards(filterValue, trainIdexesData)
+            setFilterTrainIdexesData(filteredCards)
+        }, 300)
+
+        return () => clearTimeout(Debounce)
+    }, [trainIdexesData, filterValue])
 
     useEffect(() => {
         const fetchDataIfNeeded = async () => {
@@ -46,8 +64,6 @@ const MapPage: React.FC = () => {
 
         fetchDataIfNeeded();
     }, [clickItem, selectedDateTime, listTrainWagon, listSupport2]);
-
-    const mapData = selectedDateTime ? datalistSupport2 : datalistTrainWagon;
 
     const containerV = {
         hidden: { opacity: 1, scale: 0 },
@@ -90,6 +106,12 @@ const MapPage: React.FC = () => {
                                 initial="hidden"
                                 animate="visible"
                             >
+                                <input
+                                    type="text"
+                                    placeholder="Введите значение фильтра"
+                                    value={filterValue}
+                                    onChange={(e) => setFilterValue(e.target.value)}
+                                />
                                 <LocalizationProvider
                                     dateAdapter={AdapterDayjs}
                                 >
@@ -110,8 +132,8 @@ const MapPage: React.FC = () => {
                                     />
                                 </LocalizationProvider>
 
-                                {trainIdexesData &&
-                                    trainIdexesData?.map(
+                                {filterTrainIdexesData &&
+                                    filterTrainIdexesData?.map(
                                         (item: any, key: number) => {
                                             const isItemSelected = clickItem.includes(item["TRAIN_INDEXS"])
 
