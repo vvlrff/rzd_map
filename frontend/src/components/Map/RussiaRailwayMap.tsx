@@ -6,8 +6,9 @@ import {
     Polyline,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { mapApi } from "../../services/mapApi";
-import L from "leaflet";
+import L from "leaflet"
+import blackStation from "../../assets/images/blackStation.png"
+import greenStation from "../../assets/images/greenStation.png"
 
 interface RussiaRailwayMapProps {
     data?: TrainData[];
@@ -25,15 +26,19 @@ interface stationTrainData {
     OPERDATE: number;
     ST_ID_DISL_WAGNUM: number[];
     WAGON_AMOUNT: number;
-    IS_GONE: boolean;
+    IS_GONE?: boolean;
 }
 
 const RussiaRailwayMap: React.FC<RussiaRailwayMapProps> = ({ data }) => {
-    const { data: stationCoordData } = mapApi.useGetStationCoordQuery("");
+    const greenStationIcon = new L.Icon({
+        iconUrl: greenStation, // Replace with your green icon path
+        iconSize: [30, 30],
+        iconAnchor: [15, 30],
+        popupAnchor: [0, -30],
+    });
 
-    const trailSignIcon = new L.Icon({
-        iconUrl:
-            "https://c0.klipartz.com/pngpicture/450/381/gratis-png-estacion-de-tren-ferrocarril-transporte-iconos-de-la-computadora-pista-icono-de-la-tiroides.png",
+    const greyStationIcon = new L.Icon({
+        iconUrl: blackStation, // Replace with your grey icon path
         iconSize: [30, 30],
         iconAnchor: [15, 30],
         popupAnchor: [0, -30],
@@ -81,11 +86,15 @@ const RussiaRailwayMap: React.FC<RussiaRailwayMapProps> = ({ data }) => {
                             const day = ('0' + date.getDate()).slice(-2);
                             const month = ('0' + (date.getMonth() + 1)).slice(-2);
 
+                            const isGone = station.IS_GONE !== undefined ? station.IS_GONE : false;
+                            const stationIcon = isGone ? greenStationIcon : greyStationIcon;
+
                             return (
                                 <Marker
                                     key={station.ST_ID_DISL}
                                     position={[station.LATITUDE, station.LONGITUDE]}
-                                    icon={trailSignIcon}
+                                    icon={stationIcon}
+
                                 >
                                     <Popup>
                                         <>
@@ -98,9 +107,10 @@ const RussiaRailwayMap: React.FC<RussiaRailwayMapProps> = ({ data }) => {
                                                 </span>
                                             </p>
                                             <p>
-                                                {station.IS_GONE
-                                                    ? "Посещено"
-                                                    : "Не посещено"}
+                                                {station?.IS_GONE
+                                                    ? "Станция пройдена"
+                                                    : "Станция не пройдена"
+                                                }
                                             </p>
                                         </>
                                     </Popup>
@@ -109,21 +119,26 @@ const RussiaRailwayMap: React.FC<RussiaRailwayMapProps> = ({ data }) => {
                         });
 
                     const trainPath = (
-                        <Polyline
-                            key={train.train_index}
-                            positions={train.station_data
-                                .filter(
-                                    (station) =>
-                                        station.LATITUDE !== null &&
-                                        station.LONGITUDE !== null
-                                )
-                                .map((station) => [
-                                    station.LATITUDE,
-                                    station.LONGITUDE,
-                                ])}
-                            color="blue"
-                        />
+                        <>
+                            {train.station_data &&
+                                train.station_data.map((station, index) => (
+                                    <Polyline
+                                        key={index}
+                                        positions={[
+                                            [station?.LATITUDE || 0, station?.LONGITUDE || 0],
+                                            [
+                                                (train.station_data[index + 1]?.LATITUDE) || 0,
+                                                (train.station_data[index + 1]?.LONGITUDE) || 0,
+                                            ],
+                                        ]}
+                                        color={station?.IS_GONE ? "green" : "black"}
+                                    />
+                                ))}
+                        </>
                     );
+
+
+
 
                     return [...trainMarkers, trainPath];
                 })}

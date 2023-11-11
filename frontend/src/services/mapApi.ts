@@ -8,11 +8,6 @@ export const mapApi = createApi({
     baseUrl: "http://127.0.0.1:8000",
   }),
   endpoints: (builder) => ({
-    getStationCoord: builder.query<any, string>({
-      query: () => ({
-        url: `/admin/stantioncoord`,
-      })
-    }),
     getTrainIndexes: builder.query<any, string>({
       query: () => ({
         url: `/admin/trains_index`,
@@ -28,7 +23,16 @@ export const mapApi = createApi({
         }
       })
     }),
+    postSupport2: builder.mutation<any, string>({
+      query: (train_index: string) => ({
+        url: `/admin/Support_2`,
+        method: "POST",
+        body: {
+          train_index
+        }
+      })
+    }),
   }),
 });
 
-export const { useGetStationCoordQuery, useGetTrainIndexesQuery, usePostTrainWagonDataMutation } = mapApi;
+export const { useGetTrainIndexesQuery, usePostTrainWagonDataMutation, usePostSupport2Mutation } = mapApi;
