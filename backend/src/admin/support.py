@@ -28,7 +28,21 @@ class Support:
                 'LEN':i[2],
             })
         return data
-        
+    
+    async def trains_index(self):
+        stmt = select(disl_hackaton.id, disl_hackaton.TRAIN_INDEX).limit(50)
+        res = await self.connect.execute(stmt)
+        res = res.fetchall()
+        list_train_index = []
+        data = []
+        for i in res:
+            list_train_index.append(i[1])
+        data.append({
+                'TRAIN_INDEXS':list_train_index
+        })
+
+        # # print(data)
+        return data
 
 
 
