@@ -61,10 +61,10 @@ const RussiaRailwayMap: React.FC<RussiaRailwayMapProps> = ({ data }) => {
       />
 
       {/* ЖД тайлы openrailwaymap */}
-      {/* <TileLayer
+      <TileLayer
         url="https://tiles.openrailwaymap.org/standard/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openrailwaymap.org/">OpenRailwayMap</a> contributors'
-      /> */}
+      />
 
       {stationCoordData && stationCoordData.map((station: StationData) => (
         <Marker
