@@ -139,27 +139,30 @@ const RussiaRailwayMap: React.FC<RussiaRailwayMapProps> = ({ data }) => {
                                                     {`${day}.${month} - ${hours}:${minutes}`}
                                                 </span>
                                             </p>
-                                            <p>
-                                                {station?.IS_GONE ? (
-                                                    <span
-                                                        style={{
-                                                            color: "green",
-                                                            fontWeight: 600,
-                                                        }}
-                                                    >
-                                                        Станция пройдена
-                                                    </span>
-                                                ) : (
-                                                    <span
-                                                        style={{
-                                                            color: "red",
-                                                            fontWeight: 600,
-                                                        }}
-                                                    >
-                                                        Станция не пройдена
-                                                    </span>
-                                                )}
-                                            </p>
+                                            {station.IS_GONE && (
+                                                <p>
+                                                    {station?.IS_GONE ? (
+                                                        <span
+                                                            style={{
+                                                                color: "green",
+                                                                fontWeight: 600,
+                                                            }}
+                                                        >
+                                                            Станция пройдена
+                                                        </span>
+                                                    ) : (
+                                                        <span
+                                                            style={{
+                                                                color: "red",
+                                                                fontWeight: 600,
+                                                            }}
+                                                        >
+                                                            Станция не пройдена
+                                                        </span>
+                                                    )}
+                                                </p>
+                                            )}
+
                                         </>
                                     </Popup>
                                 </Marker>
