@@ -5,10 +5,11 @@
 Диспетчеру будет удобно пользоваться нашим сервисом!   
 
 # Инструкция по запуску
-1) docker compose --profile deploy up
-2) Переход на http://localhost:8000/docs
-3) Нажать на GET admin/add_data_train_data (заполнить Бд данными)
-4) Все готово -> переходим на localhost:3000
+1) Скачиваем репозиторий проекта 
+1) Собираем проект в докере : docker compose --profile deploy up
+2) Переходим по адресу http://localhost:8000/docs
+3) Нажимаем  на  GET admin/add_data_train_data (заполняем базу данных)
+4) Переходим по адресу http://localhost:3000
 
 # Цели, задачи и особенности
 ## Цель:
