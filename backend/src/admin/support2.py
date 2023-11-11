@@ -130,17 +130,5 @@ class Support2:
                         })
         return data
 
-    async def all_peregons(self):
-        stmt = select(PEREGON.START_CODE, PEREGON.END_CODE, PEREGON.LEN)
-        res = await self.connect.execute(stmt)
-        res = res.fetchall()
-        data = []
-        for i in res:
-            data.append({
-                'START_CODE':i[0],
-                'END_CODE':i[1],
-                'LEN':i[2],
-            })
-        return data
     
     
