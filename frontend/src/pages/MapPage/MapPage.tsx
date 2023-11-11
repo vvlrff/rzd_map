@@ -131,9 +131,7 @@ const MapPage: React.FC = () => {
                                                             </span>
                                                             <span>
                                                                 {"("}
-                                                                {item.ST_ID_DISL_WAGNUM.join(
-                                                                    ", "
-                                                                )}
+                                                                {item.ST_ID_DISL_WAGNUM ? item.ST_ID_DISL_WAGNUM.join(", ") : ""}
                                                                 {")"}
                                                             </span>
                                                         </p>
