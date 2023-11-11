@@ -6,9 +6,9 @@ import {
     Polyline,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import L from "leaflet"
-import blackStation from "../../assets/images/blackStation.png"
-import greenStation from "../../assets/images/greenStation.png"
+import L from "leaflet";
+import blackStation from "../../assets/images/blackStation.png";
+import greenStation from "../../assets/images/greenStation.png";
 
 interface RussiaRailwayMapProps {
     data?: TrainData[];
@@ -77,40 +77,88 @@ const RussiaRailwayMap: React.FC<RussiaRailwayMapProps> = ({ data }) => {
                     const trainMarkers = train.station_data
                         .filter(
                             (station) =>
-                                station.LATITUDE !== null && station.LONGITUDE !== null
+                                station.LATITUDE !== null &&
+                                station.LONGITUDE !== null
                         )
                         .map((station) => {
                             const date = new Date(station.OPERDATE * 1000);
-                            const hours = ('0' + date.getHours()).slice(-2);
-                            const minutes = ('0' + date.getMinutes()).slice(-2);
-                            const day = ('0' + date.getDate()).slice(-2);
-                            const month = ('0' + (date.getMonth() + 1)).slice(-2);
+                            const hours = ("0" + date.getHours()).slice(-2);
+                            const minutes = ("0" + date.getMinutes()).slice(-2);
+                            const day = ("0" + date.getDate()).slice(-2);
+                            const month = ("0" + (date.getMonth() + 1)).slice(
+                                -2
+                            );
 
-                            const isGone = station.IS_GONE !== undefined ? station.IS_GONE : false;
-                            const stationIcon = isGone ? greenStationIcon : greyStationIcon;
+                            const isGone =
+                                station.IS_GONE !== undefined
+                                    ? station.IS_GONE
+                                    : false;
+                            const stationIcon = isGone
+                                ? greenStationIcon
+                                : greyStationIcon;
 
                             return (
                                 <Marker
                                     key={station.ST_ID_DISL}
-                                    position={[station.LATITUDE, station.LONGITUDE]}
+                                    position={[
+                                        station.LATITUDE,
+                                        station.LONGITUDE,
+                                    ]}
                                     icon={stationIcon}
-
                                 >
                                     <Popup>
                                         <>
-                                            <p>ID Станции: {station.ST_ID_DISL}</p>
-                                            <p>Кол-во вагонов: {station.WAGON_AMOUNT}</p>
                                             <p>
-                                                Время прибытия
-                                                <span style={{ display: "block" }}>
-                                                    {`${hours}:${minutes} --- ${day}.${month}`}
+                                                ID Станции:
+                                                <span
+                                                    style={{
+                                                        fontWeight: 600,
+                                                    }}
+                                                >
+                                                    {station.ST_ID_DISL}
                                                 </span>
                                             </p>
                                             <p>
-                                                {station?.IS_GONE
-                                                    ? "Станция пройдена"
-                                                    : "Станция не пройдена"
-                                                }
+                                                Кол-во вагонов:{" "}
+                                                <span
+                                                    style={{
+                                                        fontWeight: 600,
+                                                    }}
+                                                >
+                                                    {station.WAGON_AMOUNT}
+                                                </span>
+                                            </p>
+                                            <p>
+                                                Время прибытия
+                                                <span
+                                                    style={{
+                                                        display: "block",
+                                                        fontWeight: 600,
+                                                    }}
+                                                >
+                                                    {`${day}.${month} - ${hours}:${minutes}`}
+                                                </span>
+                                            </p>
+                                            <p>
+                                                {station?.IS_GONE ? (
+                                                    <span
+                                                        style={{
+                                                            color: "green",
+                                                            fontWeight: 600,
+                                                        }}
+                                                    >
+                                                        Станция пройдена
+                                                    </span>
+                                                ) : (
+                                                    <span
+                                                        style={{
+                                                            color: "red",
+                                                            fontWeight: 600,
+                                                        }}
+                                                    >
+                                                        Станция не пройдена
+                                                    </span>
+                                                )}
                                             </p>
                                         </>
                                     </Popup>
@@ -125,13 +173,20 @@ const RussiaRailwayMap: React.FC<RussiaRailwayMapProps> = ({ data }) => {
                                     <Polyline
                                         key={index}
                                         positions={[
-                                            [station?.LATITUDE || 0, station?.LONGITUDE || 0],
                                             [
-                                                (train.station_data[index + 1]?.LATITUDE) || 0,
-                                                (train.station_data[index + 1]?.LONGITUDE) || 0,
+                                                station?.LATITUDE || 0,
+                                                station?.LONGITUDE || 0,
+                                            ],
+                                            [
+                                                train.station_data[index + 1]
+                                                    ?.LATITUDE || 0,
+                                                train.station_data[index + 1]
+                                                    ?.LONGITUDE || 0,
                                             ],
                                         ]}
-                                        color={station?.IS_GONE ? "green" : "black"}
+                                        color={
+                                            station?.IS_GONE ? "green" : "black"
+                                        }
                                     />
                                 ))}
                         </>
@@ -139,7 +194,6 @@ const RussiaRailwayMap: React.FC<RussiaRailwayMapProps> = ({ data }) => {
 
                     return [...trainMarkers, trainPath];
                 })}
-
         </MapContainer>
     );
 };
