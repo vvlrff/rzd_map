@@ -73,23 +73,23 @@ class Support2:
             data.append(total_data_one_train)
         return data
 
-
-
-    
     async def one_train_with_time(self, train_index = '8810-413-8811', current_time = '2023-06-06 05:30:00'):
         current_time_timestamp = int(time.mktime(datetime.datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S").timetuple()))
 
         stmt_one_train = select(TrainData.station_data).where(TrainData.train_index == train_index)
         stmt_one_train = await self.connect.execute(stmt_one_train)
         one_train_data = stmt_one_train.fetchone()
+        
+        one_train_data = one_train_data[0]
+        one_train_data = sorted(one_train_data, key=lambda x: x['OPERDATE'])
 
-        for current_station in one_train_data[0]:
+        for current_station in one_train_data:
             if current_station['OPERDATE'] <= current_time_timestamp:
                 current_station['IS_GONE'] = True
             else:
                 current_station['IS_GONE'] = False
 
-        total_data_one_train = [{'train_index': train_index, 'station_data': one_train_data[0]}]
+        total_data_one_train = [{'train_index': train_index, 'station_data': one_train_data}]
 
         return total_data_one_train
         
@@ -101,13 +101,16 @@ class Support2:
             stmt_one_train = await self.connect.execute(stmt_one_train)
             one_train_data = stmt_one_train.fetchone()
 
-            for current_station in one_train_data[0]:
+            one_train_data = one_train_data[0]
+            one_train_data = sorted(one_train_data, key=lambda x: x['OPERDATE'])
+
+            for current_station in one_train_data:
                 if current_station['OPERDATE'] <= current_time_timestamp:
                     current_station['IS_GONE'] = True
                 else:
                     current_station['IS_GONE'] = False
 
-            total_data_one_train = [{'train_index': one_index, 'station_data': one_train_data[0]}]
+            total_data_one_train = [{'train_index': one_index, 'station_data': one_train_data}]
             data.append(total_data_one_train)
 
         return data
