@@ -13,30 +13,40 @@
         .itemContainer {
             margin: 0 auto;
             margin-top: 25px;
-            width: 75%;
+            width: 85%;
         }
 
         .datetime {
+            display: block;
+            margin: 0 auto;
+            margin-top: 30px;
+            width: fit-content;
             background-color: #fff;
+            padding: 5px;
+            border-radius: 8px;
+
+            label {
+                padding: 7px;
+            }
 
             input {
                 color: #121212;
             }
-            
+
             .MuiInput-underline:before {
-                border-bottom-color: "white",
+                border-bottom-color: "white";
             }
 
             .MuiInput-underline:after {
-                border-bottom-color: "white",
+                border-bottom-color: "white";
             }
 
             .MuiInput-input {
-                color: "white",
+                color: "white";
             }
 
             .MuiInputLabel-root {
-                color: "white",
+                color: "white";
             }
         }
 
@@ -65,9 +75,15 @@
             }
 
             .content {
-                p {
-                    font-weight: bold;
-                    font-size: 20px;
+                .title {
+                    margin: 5px 0;
+                    font-weight: 400;
+                    font-size: 16px;
+
+                    span {
+                        font-weight: 600;
+                        font-size: 18px;
+                    }
                 }
             }
 

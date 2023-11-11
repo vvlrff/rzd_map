@@ -57,13 +57,43 @@ export const Header: FC = () => {
                         justifyContent={"space-between"}
                         alignItems={"center"}
                     >
-                        <Box display={"flex"} alignItems={"center"}>
+                        <Box display={"flex"} alignItems={"center"} gap={4}>
                             <Link to={"/"} color="primary">
                                 {/* <img src={AiOpenLogo} height={65} alt="logo" /> */}
                                 <Typography variant="h5" color="primary">
                                     NaturaLP
                                 </Typography>
                             </Link>
+                            <Box
+                                height={65}
+                                width={65}
+                                sx={{
+                                    "& img": {
+                                        width: "100%",
+                                        height: "100%",
+                                    },
+                                }}
+                            >
+                                <img
+                                    src="https://static.tildacdn.com/tild3632-3235-4330-b835-346636623337/PGK_white.svg"
+                                    alt=""
+                                />
+                            </Box>
+                            <Box
+                                height={65}
+                                width={65}
+                                sx={{
+                                    "& img": {
+                                        width: "100%",
+                                        height: "100%",
+                                    },
+                                }}
+                            >
+                                <img
+                                    src="https://static.tildacdn.com/tild3633-6432-4535-a132-316561633332/PGK_digital.svg"
+                                    alt=""
+                                />
+                            </Box>
                         </Box>
                         <Box display="flex" alignItems={"center"}>
                             <Box

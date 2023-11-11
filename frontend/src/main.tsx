@@ -3,7 +3,6 @@ import App from "./App.tsx";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
 import "./assets/styles/index.scss";
-// import "bootstrap/dist/css/bootstrap.css";
 import MyThemeProvider from "./app/ThemeProvider";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
