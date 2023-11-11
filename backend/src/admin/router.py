@@ -73,3 +73,10 @@ async def all_peregons(request_data: TrainIndexRequest, session: AsyncSession = 
     data = await support.all_peregons(train_index=request_data.train_index)
     return JSONResponse(data)
 
+
+@router.post('/one_train_with_time')
+async def one_train_with_time(request_data: TrainIndexRequestCurrentData, session: AsyncSession = Depends(get_async_session)):
+    support = Support2(coonection=session)
+    data = await support.one_train_with_time(train_index=request_data.train_index, current_time=request_data.current_data)
+    return JSONResponse(data)
+

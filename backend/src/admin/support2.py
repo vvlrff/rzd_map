@@ -1,4 +1,4 @@
-import datetime
+import datetime, time
 import os
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import and_, delete, desc, insert, or_,  select,  func, update 
@@ -57,6 +57,18 @@ class Support2:
             total_data[0]['station_data'][station_index]['WAGON_AMOUNT'] = len(total_data[0]['station_data'][station_index]['ST_ID_DISL_WAGNUM'])
 
         return total_data
+    
+    async def one_train_with_time(self, train_index = '8810-413-8811', current_time = '2023-06-06 05:30:00'):
+        current_time_timestamp = int(time.mktime(datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S").timetuple()))
+
+        total_data_with_time = await self.all_peregons(train_index = train_index)
+        for current_station in total_data_with_time[0]['station_data']:
+            if current_station['OPERDATE'] <= current_time_timestamp:
+                current_station['IS_GONE'] = True
+            else:
+                current_station['IS_GONE'] = False
+
+        return total_data_with_time
         
 
 

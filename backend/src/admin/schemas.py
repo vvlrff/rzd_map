@@ -6,6 +6,10 @@ from fastapi import UploadFile, File
 class TrainIndexRequest(BaseModel):
     train_index: str
 
+class TrainIndexRequestCurrentData(BaseModel):
+    train_index: str
+    current_data: str
+
 class PutPost(BaseModel):
     id_post: int
     title: str
