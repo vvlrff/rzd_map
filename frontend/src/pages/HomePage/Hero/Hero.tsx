@@ -2,6 +2,7 @@ import { Box, Button, Typography } from "@mui/material";
 import s from "./Hero.module.scss";
 import Container from "../../../components/Container/Container";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
     return (
@@ -11,6 +12,7 @@ const Hero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
+            zIndex={2}
         >
             <img className={s.img} src="/mainTrain.webp" alt="" />
             <Container>
@@ -22,13 +24,16 @@ const Hero = () => {
                     alignItems="center"
                     gap={2}
                 >
+                    <Typography align="center" variant="h2" color="primary">
+                        ЖД карта желаний
+                    </Typography>
                     <Typography
                         align="center"
                         variant="h2"
                         color="primary"
                         gutterBottom
                     >
-                        Следите за поездом
+                        Создание карты движения поездов
                     </Typography>
                     <Typography
                         align="center"
@@ -36,11 +41,18 @@ const Hero = () => {
                         variant="h5"
                         gutterBottom
                     >
-                        Отслеживайте местоположение поезда без проблем
+                        Сервис для визуализации движения поезда в режиме
+                        реального времени
                     </Typography>
-                    <Button color="secondary" size="large" variant="contained">
-                        <span>Начать</span>
-                    </Button>
+                    <Link to="map">
+                        <Button
+                            color="secondary"
+                            size="large"
+                            variant="contained"
+                        >
+                            <span>Начать</span>
+                        </Button>
+                    </Link>
                 </Box>
             </Container>
         </Box>
