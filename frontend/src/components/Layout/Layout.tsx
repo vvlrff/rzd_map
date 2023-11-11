@@ -9,7 +9,7 @@ const Layout = () => {
         <>
             <Header></Header>
             <main>
-                <Box height={60}></Box>
+                <Box height={56}></Box>
                 <Outlet />
             </main>
             <footer></footer>

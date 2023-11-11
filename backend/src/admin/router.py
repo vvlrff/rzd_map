@@ -77,49 +77,9 @@ async def all_peregons(request_data: TrainIndexRequest, session: AsyncSession = 
     return JSONResponse(data)
 
 
-@router.get('/add_data_train_data')
-async def add_data_train_data(session: AsyncSession = Depends(get_async_session)):
 
-    with open('TrainData.pickle', 'rb') as f:
-        loaded_obj = pickle.load(f)
-
-    for i in loaded_obj:
-        stmt = (
-            insert(TrainData)
-            .values(
-                train_index = i[1],
-                station_data = i[2]
-            )
-        )
-        await session.execute(stmt)
-        await session.commit()
-
-    # print(loaded_obj)
-    # for i in loaded_obj:
-    #     print(f'И {raz} раз')
-    #     data = await support.all_peregons(train_index=i[0])
-    #     stmt = (
-    #     insert(TrainData)
-    #     .values(
-    #             train_index = data[0]['train_index'],
-    #             station_data = data[0]['station_data'],
-    #     )
-    #     )
-    #     await session.execute(stmt)
-    #     await session.commit()
-    #     raz += 1
-
-
-    # support = Support2(coonection=session)
-    # data = await support.all_peregons(train_index=train_index)
-    # stmt = (
-    #     insert(TrainData)
-    #     .values(
-    #         train_index = data[0]['train_index'],
-    #         station_data = data[0]['station_data'],
-    # )
-    # )
-    # await session.execute(stmt)
-    # await session.commit()
-
-    # return JSONResponse(data)
+@router.post('/one_train_with_time')
+async def one_train_with_time(request_data: TrainIndexRequestCurrentData, session: AsyncSession = Depends(get_async_session)):
+    support = Support2(coonection=session)
+    data = await support.one_train_with_time(train_index=request_data.train_index, current_time=request_data.current_data)
+    return JSONResponse(data)
