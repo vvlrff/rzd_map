@@ -7,6 +7,7 @@ from .schemas import *
 import os
 
 from .support import Support
+from .support2 import Support2
 
 router = APIRouter(
     prefix='/admin',
@@ -45,3 +46,9 @@ async def get_info_page(session: AsyncSession = Depends(get_async_session)):
 6628, 13: 6598, 14: 6614, 15: 6625, 16: 6663, 17: 7045, 18: 7052, 19: 6169}, 'ST_ID_DEST': {0: 61, 1: 61, 2: 61, 3: 61, 4: 61, 5: 61, 6: 61, 7: 61, 8: 61, 9: 61, 10: 61, 11: 61, 12: 61, 13: 61, 14: 61, 15: 61, 16: 61, 17: 61, 18: 61, 19: 61}, 'TRAIN_INDEX': {0: '7475-335-62', 1: '7475-335-62', 2: '7475-335-62', 3: '6999-471-7475', 4: '6999-471-7475', 5: '6999-471-7475', 6: '20792-360-6999', 7: '20792-360-6999', 8: '20792-360-6999', 9: '20792-360-6999', 10: '20792-360-6999', 11: '20792-360-6999', 12: '20792-360-6999', 13: '20792-360-6999', 14: '20792-360-6999', 15: '20792-360-6999', 16: '20792-360-6999', 17: '20792-360-6999', 18: '20792-360-6999', 19: '20792-360-6999'}
 }]
     )
+
+@router.get('/Support_2')
+async def all_peregons(train_index: str, session: AsyncSession = Depends(get_async_session)):
+    support = Support2(coonection=session)
+    data = await support.all_peregons(train_index=train_index)
+    return JSONResponse(data)
