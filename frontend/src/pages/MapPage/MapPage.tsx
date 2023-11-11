@@ -1,30 +1,33 @@
 import React, { useEffect, useState } from "react";
 import RussiaRailwayMap from "../../components/Map/RussiaRailwayMap";
 import { mapApi } from "../../services/mapApi";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Divider } from "@mui/material";
 import Loader from "../../components/Loader/Loader";
 import { motion } from "framer-motion";
 import dayjs from "dayjs";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import s from "./MapPage.module.scss";
-
 
 const MapPage: React.FC = () => {
     const { data: trainIdexesData } = mapApi.useGetTrainIndexesQuery("");
     const [clickItem, setClickItem] = useState<string>("");
     const [selectedDateTime, setSelectedDateTime] = useState<Date | null>(null);
 
-    const [fetchData, { data, isLoading }] = mapApi.usePostTrainWagonDataMutation();
-    const [support2, { data: dataSupport2, isLoading: isLoadingSupport2 }] = mapApi.usePostSupport2Mutation();
+    const [fetchData, { data, isLoading }] =
+        mapApi.usePostTrainWagonDataMutation();
+    const [support2, { data: dataSupport2, isLoading: isLoadingSupport2 }] =
+        mapApi.usePostSupport2Mutation();
 
     useEffect(() => {
         const fetchDataIfNeeded = async () => {
             if (clickItem && selectedDateTime) {
                 const trainData = {
                     train_index: clickItem,
-                    current_data: dayjs(selectedDateTime).format("YYYY-MM-DD HH:mm:ss"),
+                    current_data: dayjs(selectedDateTime).format(
+                        "YYYY-MM-DD HH:mm:ss"
+                    ),
                 };
                 await fetchData(trainData);
             } else if (clickItem) {
@@ -35,7 +38,7 @@ const MapPage: React.FC = () => {
         fetchDataIfNeeded();
     }, [clickItem, selectedDateTime, fetchData, support2]);
 
-    const mapData = selectedDateTime ? data : dataSupport2
+    const mapData = selectedDateTime ? data : dataSupport2;
 
     const containerV = {
         hidden: { opacity: 1, scale: 0 },
@@ -78,12 +81,18 @@ const MapPage: React.FC = () => {
                                 initial="hidden"
                                 animate="visible"
                             >
-                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <LocalizationProvider
+                                    dateAdapter={AdapterDayjs}
+                                >
                                     <DateTimePicker
                                         label="Выберите дату"
-                                        className={s.datetime} selectedSections={undefined} onSelectedSectionsChange={undefined}
+                                        className={s.datetime}
+                                        selectedSections={undefined}
+                                        onSelectedSectionsChange={undefined}
                                         value={selectedDateTime}
-                                        onChange={(newDateTime) => setSelectedDateTime(newDateTime)}
+                                        onChange={(newDateTime) =>
+                                            setSelectedDateTime(newDateTime)
+                                        }
                                     />
                                 </LocalizationProvider>
 
@@ -94,9 +103,10 @@ const MapPage: React.FC = () => {
                                                 <motion.div
                                                     className={s.item}
                                                     onClick={() => {
-                                                        setClickItem(item["TRAIN_INDEXS"])
+                                                        setClickItem(
+                                                            item["TRAIN_INDEXS"]
+                                                        );
                                                     }}
-
                                                     key={key}
                                                     variants={itemV}
                                                 >
