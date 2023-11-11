@@ -6,7 +6,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from ..datebase import get_async_session
 from .schemas import *
 from .models import *
-from .support import Support
 from .support2 import Support2
 # 
 router = APIRouter(
@@ -54,7 +53,7 @@ async def get_info_db(session: AsyncSession = Depends(get_async_session)):
 @router.get('/PEREGON_HACKATON')
 
 async def all_peregons(session: AsyncSession = Depends(get_async_session)):
-    support = Support(coonection=session)
+    support = Support2(coonection=session)
     data = await support.all_peregons()
     return JSONResponse(data)
 
@@ -62,7 +61,7 @@ async def all_peregons(session: AsyncSession = Depends(get_async_session)):
 
 @router.get('/trains_index')
 async def trains_index(session: AsyncSession = Depends(get_async_session)):
-    support = Support(coonection=session)
+    support = Support2(coonection=session)
     data = await support.trains_index()
     return JSONResponse(data)
 

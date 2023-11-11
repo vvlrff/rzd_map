@@ -5,10 +5,8 @@ from .models import *
 from .schemas import * 
 
 class Support:
-
     def __init__(self, coonection):
         self.connect: AsyncSession = coonection
-
     async def all_peregons(self):
         stmt = select(PEREGON.START_CODE, PEREGON.END_CODE, PEREGON.LEN)
         res = await self.connect.execute(stmt)
@@ -27,9 +25,7 @@ class Support:
         res = await self.connect.execute(stmt)
         res = res.fetchall()
         sorted_res = sorted(res, key=lambda x: len(x[1]), reverse=True)
-
         data = []
-
         for index in range(len(sorted_res)):
 
             data.append({'TRAIN_INDEXS':sorted_res[index][0],
@@ -37,7 +33,6 @@ class Support:
                         'FIRST_STATIONS': sorted_res[index][1][0]['ST_ID_DISL'],
                         'LAST_STATIONS': sorted_res[index][1][-1]['ST_ID_DISL']
                         })
-    
         return data
 
 
