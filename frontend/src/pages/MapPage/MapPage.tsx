@@ -13,13 +13,18 @@ import s from "./MapPage.module.scss";
 
 const MapPage: React.FC = () => {
     const { data: trainIdexesData } = mapApi.useGetTrainIndexesQuery("");
-    const [clickItem, setClickItem] = useState<string>("");
+    const [clickItem, setClickItem] = useState<string[]>([]);
     const [selectedDateTime, setSelectedDateTime] = useState<Date | null>(null);
 
-    const [fetchData, { data, isLoading }] =
-        mapApi.usePostTrainWagonDataMutation();
-    const [support2, { data: dataSupport2, isLoading: isLoadingSupport2 }] =
-        mapApi.usePostSupport2Mutation();
+    // const [trainWagon, { data, isLoading }] =
+    //     mapApi.usePostTrainWagonDataMutation();
+    // const [support2, { data: dataSupport2, isLoading: isLoadingSupport2 }] =
+    //     mapApi.usePostSupport2Mutation();
+    const [listSupport2, { data: datalistSupport2, isLoading: isLoadingListSupport2 }] =
+        mapApi.usePostListSupport2Mutation();
+    const [listTrainWagon, { data: datalistTrainWagon, isLoading: isLoadingListTrainWagon }] =
+        mapApi.usePostListTrainWagonDataMutation();
+
 
     useEffect(() => {
         const fetchDataIfNeeded = async () => {
@@ -30,16 +35,19 @@ const MapPage: React.FC = () => {
                         "YYYY-MM-DD HH:mm:ss"
                     ),
                 };
-                await fetchData(trainData);
+                await listTrainWagon(trainData);
             } else if (clickItem) {
-                await support2(clickItem);
+                const trainData = {
+                    train_index: clickItem,
+                };
+                await listSupport2(trainData);
             }
         };
 
         fetchDataIfNeeded();
-    }, [clickItem, selectedDateTime, fetchData, support2]);
+    }, [clickItem, selectedDateTime, listTrainWagon, listSupport2]);
 
-    const mapData = selectedDateTime ? data : dataSupport2;
+    const mapData = selectedDateTime ? datalistSupport2 : datalistTrainWagon;
 
     const containerV = {
         hidden: { opacity: 1, scale: 0 },
@@ -63,7 +71,7 @@ const MapPage: React.FC = () => {
 
     return (
         <div className={s.container}>
-            {isLoading || isLoadingSupport2 ? (
+            {isLoadingListSupport2 || isLoadingListTrainWagon ? (
                 <>
                     <Loader></Loader>
                 </>
@@ -105,14 +113,26 @@ const MapPage: React.FC = () => {
                                 {trainIdexesData &&
                                     trainIdexesData?.map(
                                         (item: any, key: number) => {
+                                            const isItemSelected = clickItem.includes(item["TRAIN_INDEXS"])
+
                                             return (
                                                 <motion.div
                                                     className={s.item}
                                                     onClick={() => {
-                                                        setClickItem(
-                                                            item["TRAIN_INDEXS"]
-                                                        );
+                                                        setClickItem((prevClickItem) => {
+                                                            if (isItemSelected) {
+                                                                // Если элемент уже выбран, уберите его из массива
+                                                                return prevClickItem.filter(
+                                                                    (selectedItem) =>
+                                                                        selectedItem !== item["TRAIN_INDEXS"]
+                                                                );
+                                                            } else {
+                                                                // В противном случае добавьте его в массив
+                                                                return [...prevClickItem, item["TRAIN_INDEXS"]]
+                                                            }
+                                                        });
                                                     }}
+
                                                     key={key}
                                                     variants={itemV}
                                                 >
@@ -170,7 +190,7 @@ const MapPage: React.FC = () => {
                     </Box>
 
                     <div className={s.map}>
-                        <RussiaRailwayMap data={mapData} />
+                        <RussiaRailwayMap data={datalistTrainWagon || datalistSupport2} />
                     </div>
                 </>
             )}

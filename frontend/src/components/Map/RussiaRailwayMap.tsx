@@ -6,8 +6,9 @@ import greenStation from "../../assets/images/greenStation.png";
 import "leaflet/dist/leaflet.css";
 
 
-
 const RussiaRailwayMap: React.FC<RussiaRailwayMapProps> = ({ data }) => {
+
+    console.log(data)
     const greenStationIcon = new L.Icon({
         iconUrl: greenStation, // Replace with your green icon path
         iconSize: [30, 30],
@@ -29,7 +30,7 @@ const RussiaRailwayMap: React.FC<RussiaRailwayMapProps> = ({ data }) => {
     };
 
     const center = [53.7558, 53.6176]; // Координаты центра России
-    const zoom = 4.5; // Начальный уровень масштабирования
+    const zoom = 4; // Начальный уровень масштабирования
 
     return (
         <MapContainer
@@ -51,7 +52,7 @@ const RussiaRailwayMap: React.FC<RussiaRailwayMapProps> = ({ data }) => {
             />
 
             {data &&
-                data.map((train: TrainData) => {
+                data.flat().map((train: TrainData) => {
                     const trainMarkers = train.station_data
                         .filter(
                             (station) =>
