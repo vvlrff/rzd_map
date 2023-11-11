@@ -7,7 +7,7 @@ from ..datebase import get_async_session
 from .schemas import *
 from .models import *
 from .support2 import Support2
-# 
+
 router = APIRouter(
     prefix='/admin',
     tags=['admin']

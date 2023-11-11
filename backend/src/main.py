@@ -8,9 +8,6 @@ app = FastAPI(
 )
 
 
-@app.get('/')
-async def get_home():
-    return 'Я БЕкЕнд' 
 
 origins = [
     "http://localhost.tiangolo.com",
