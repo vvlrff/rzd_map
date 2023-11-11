@@ -8,6 +8,8 @@ import {
     Typography,
     Button,
     MenuItem,
+    Popover,
+    Paper,
 } from "@mui/material";
 // import { Container, Box } from "@mui/system";
 import { ReactElement, FC, useState } from "react";
@@ -15,6 +17,8 @@ import { Link } from "react-router-dom";
 import Container from "../Container/Container";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import MapIcon from "@mui/icons-material/Map";
 interface IHideOnScroll {
     children: ReactElement;
 }
@@ -30,6 +34,18 @@ const HideOnScroll: FC<IHideOnScroll> = ({ children }) => {
 };
 
 export const Header: FC = () => {
+    const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+
+    const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handlePopoverClose = () => {
+        setAnchorEl(null);
+    };
+
+    const openPop = Boolean(anchorEl);
+
     const [isOpen, setIsOpen] = useState<null | boolean>(null);
 
     const handleMenuOpen = () => {
@@ -99,8 +115,67 @@ export const Header: FC = () => {
                             <Box
                                 sx={{ display: { xs: "flex" } }}
                                 alignItems={"center"}
+                                gap={1}
                             >
                                 <>
+                                    <div>
+                                        <IconButton
+                                            aria-label="Quick Help"
+                                            size="large"
+                                            aria-owns={
+                                                open
+                                                    ? "mouse-over-popover"
+                                                    : undefined
+                                            }
+                                            aria-haspopup="true"
+                                            onMouseEnter={handlePopoverOpen}
+                                            onMouseLeave={handlePopoverClose}
+                                        >
+                                            <HelpOutlineIcon color="primary" />
+                                        </IconButton>
+                                        <Popover
+                                            id="mouse-over-popover"
+                                            sx={{
+                                                pointerEvents: "none",
+                                            }}
+                                            open={openPop}
+                                            anchorEl={anchorEl}
+                                            anchorOrigin={{
+                                                vertical: "bottom",
+                                                horizontal: "left",
+                                            }}
+                                            transformOrigin={{
+                                                vertical: "top",
+                                                horizontal: "left",
+                                            }}
+                                            onClose={handlePopoverClose}
+                                            disableRestoreFocus
+                                        >
+                                            <Box
+                                                padding={4}
+                                                sx={{
+                                                    backgroundColor: "#fff",
+                                                }}
+                                            >
+                                                <Typography
+                                                    variant="h6"
+                                                    color="black"
+                                                >
+                                                    Как пользоваться?
+                                                    <p>1) Откройте карту</p>
+                                                    <p>
+                                                        2) Выберите дату или
+                                                        нужный вам поезд
+                                                    </p>
+                                                    <p>
+                                                        3) Отслеживайте маршрут
+                                                        выбранного поезда
+                                                    </p>
+                                                </Typography>
+                                            </Box>
+                                        </Popover>
+                                    </div>
+
                                     <IconButton
                                         aria-label="Menu"
                                         onClick={handleMenuOpen}
