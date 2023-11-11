@@ -1,3 +1,4 @@
+import pickle
 from fastapi import APIRouter, Depends
 from fastapi.responses import JSONResponse
 from sqlalchemy import distinct, insert, select
@@ -79,26 +80,34 @@ async def all_peregons(request_data: TrainIndexRequest, session: AsyncSession = 
 @router.get('/add_data_train_data')
 async def add_data_train_data(session: AsyncSession = Depends(get_async_session)):
 
-    support = Support2(coonection=session)
-    stmt_all = (
-        select(distinct(disl_hackaton.TRAIN_INDEX))
-    )
-    data_train = await session.execute(stmt_all)
-    await session.commit()
-    raz = 1
-    for i in data_train:
-        print(f'И {raz} раз')
-        data = await support.all_peregons(train_index=i[0])
+    with open('TrainData.pickle', 'rb') as f:
+        loaded_obj = pickle.load(f)
+
+    for i in loaded_obj:
         stmt = (
-        insert(TrainData)
-        .values(
-                train_index = data[0]['train_index'],
-                station_data = data[0]['station_data'],
-        )
+            insert(TrainData)
+            .values(
+                train_index = i[1],
+                station_data = i[2]
+            )
         )
         await session.execute(stmt)
         await session.commit()
-        raz += 1
+
+    # print(loaded_obj)
+    # for i in loaded_obj:
+    #     print(f'И {raz} раз')
+    #     data = await support.all_peregons(train_index=i[0])
+    #     stmt = (
+    #     insert(TrainData)
+    #     .values(
+    #             train_index = data[0]['train_index'],
+    #             station_data = data[0]['station_data'],
+    #     )
+    #     )
+    #     await session.execute(stmt)
+    #     await session.commit()
+    #     raz += 1
 
 
     # support = Support2(coonection=session)
