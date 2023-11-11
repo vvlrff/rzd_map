@@ -73,69 +73,68 @@ const RussiaRailwayMap: React.FC<RussiaRailwayMapProps> = ({ data }) => {
                 attribution='&copy; <a href="https://www.openrailwaymap.org/">OpenRailwayMap</a> contributors'
             />
 
-            {stationCoordData &&
-                stationCoordData.map((station: stationTrainData) => {
-                    const date = new Date(station.OPERDATE);
-                    const hours = date.getHours();
-                    const minutes = date.getMinutes();
-                    const day = date.getDate();
-                    const month = date.getMonth() + 1;
-                    return (
-                        <Marker
-                            key={station.ST_ID_DISL}
-                            position={[station.LATITUDE, station.LONGITUDE]}
-                            icon={trailSignIcon}
-                        >
-                            {/* Можно добавить Popup, если необходимо */}
-                            <Popup>
-                                {
-                                    <>
-                                        <p>ID Станции: {station.ST_ID_DISL}</p>
-                                        <p>
-                                            Кол-во вагонов:{" "}
-                                            {station.WAGON_AMOUNT}
-                                        </p>
-                                        <p>
-                                            Время прибытия
-                                            <span style={{ display: "block" }}>
-                                                {`${hours}:${minutes} --- ${day}.${month}`}
-                                            </span>
-                                        </p>
-                                        <p>
-                                            {station.IS_GONE
-                                                ? "Посещено"
-                                                : "Не посещено"}
-                                        </p>
-                                    </>
-                                }
-                            </Popup>
-                        </Marker>
+            {data &&
+                data.map((train: TrainData) => {
+                    const trainMarkers = train.station_data
+                        .filter(
+                            (station) =>
+                                station.LATITUDE !== null && station.LONGITUDE !== null
+                        )
+                        .map((station) => {
+                            const date = new Date(station.OPERDATE);
+                            const hours = date.getHours();
+                            const minutes = date.getMinutes();
+                            const day = date.getDate();
+                            const month = date.getMonth() + 1;
+
+                            return (
+                                <Marker
+                                    key={station.ST_ID_DISL}
+                                    position={[station.LATITUDE, station.LONGITUDE]}
+                                    icon={trailSignIcon}
+                                >
+                                    {/* Можно добавить Popup, если необходимо */}
+                                    <Popup>
+                                        <>
+                                            <p>ID Станции: {station.ST_ID_DISL}</p>
+                                            <p>Кол-во вагонов: {station.WAGON_AMOUNT}</p>
+                                            <p>
+                                                Время прибытия
+                                                <span style={{ display: "block" }}>
+                                                    {`${hours}:${minutes} --- ${day}.${month}`}
+                                                </span>
+                                            </p>
+                                            <p>
+                                                {station.IS_GONE
+                                                    ? "Посещено"
+                                                    : "Не посещено"}
+                                            </p>
+                                        </>
+                                    </Popup>
+                                </Marker>
+                            );
+                        });
+
+                    const trainPath = (
+                        <Polyline
+                            key={train.train_index}
+                            positions={train.station_data
+                                .filter(
+                                    (station) =>
+                                        station.LATITUDE !== null &&
+                                        station.LONGITUDE !== null
+                                )
+                                .map((station) => [
+                                    station.LATITUDE,
+                                    station.LONGITUDE,
+                                ])}
+                            color="blue"
+                        />
                     );
+
+                    return [...trainMarkers, trainPath];
                 })}
 
-            {data ? (
-                data.map((train: TrainData) => (
-                    <Polyline
-                        key={train.train_index}
-                        positions={train.station_data
-                            .filter(
-                                (station) =>
-                                    station.LATITUDE !== null &&
-                                    station.LONGITUDE !== null
-                            )
-                            .map((station) => [
-                                station.LATITUDE,
-                                station.LONGITUDE,
-                            ])}
-                        color="blue"
-                    />
-                ))
-            ) : (
-                <TileLayer
-                    url="https://tiles.openrailwaymap.org/standard/{z}/{x}/{y}.png"
-                    attribution='&copy; <a href="https://www.openrailwaymap.org/">OpenRailwayMap</a> contributors'
-                />
-            )}
         </MapContainer>
     );
 };

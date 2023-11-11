@@ -87,7 +87,7 @@ const MapPage: React.FC = () => {
                                                 <motion.div
                                                     className={s.item}
                                                     onClick={() => {
-                                                        setClickItem(item)
+                                                        setClickItem(item["TRAIN_INDEXS"])
                                                     }}
 
                                                     key={key}
