@@ -30,18 +30,29 @@ class Support:
         return data
     
     async def trains_index(self):
-        stmt = select(distinct(disl_hackaton.TRAIN_INDEX)).limit(50)
+        stmt = select(TrainData.train_index, TrainData.station_data).limit(50)
         res = await self.connect.execute(stmt)
         res = res.fetchall()
-        list_train_index = []
-        data = []
-        for i in res:
-            list_train_index.append(i[0])
-        data.append({
-                'TRAIN_INDEXS':list_train_index
-        })
+        sorted_res = sorted(res, key=lambda x: len(x[1]), reverse=True)
 
-        print(data)
+        list_train_index = []
+        list_path_len = []
+        first_station_list = []
+        last_station_list = []
+        data = []
+
+        for index in range(len(sorted_res)):
+            list_train_index.append(sorted_res[index][0])
+            list_path_len.append(len(sorted_res[index][1]))
+            first_station_list.append(sorted_res[index][1][0]['ST_ID_DISL'])
+            last_station_list.append(sorted_res[index][1][-1]['ST_ID_DISL'])
+
+        data.append({'TRAIN_INDEXS':list_train_index,
+                     'PATH_LEN': list_path_len,
+                     'FIRST_STATIONS': first_station_list,
+                     'LAST_STATIONS': last_station_list
+                     })
+    
         return data
 
 
