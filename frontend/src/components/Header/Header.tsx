@@ -13,7 +13,8 @@ import {
 import { ReactElement, FC, useState } from "react";
 import { Link } from "react-router-dom";
 import Container from "../Container/Container";
-
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
 interface IHideOnScroll {
     children: ReactElement;
 }
@@ -51,83 +52,92 @@ export const Header: FC = () => {
                 elevation={1}
             >
                 <Container paddingY={{ xs: 1 / 2, sm: 1 }}>
-                <Box
-                    display={"flex"}
-                    justifyContent={"space-between"}
-                    alignItems={"center"}
-                >
-                    <Box display={"flex"} alignItems={"center"}>
-                        <Link to={"/"}>
-                            {/* <img src={AiOpenLogo} height={65} alt="logo" /> */}
-                            logo here
-                        </Link>
-                    </Box>
-                    <Box display="flex" alignItems={"center"}>
-                        <Box
-                            sx={{ display: { xs: "flex" } }}
-                            alignItems={"center"}
-                        >
-                            <>
-                                <IconButton
-                                    aria-label="Menu"
-                                    onClick={handleMenuOpen}
-                                >
-                                    {/* <MenuIcon /> */}
-                                    click
-                                </IconButton>
+                    <Box
+                        display={"flex"}
+                        justifyContent={"space-between"}
+                        alignItems={"center"}
+                    >
+                        <Box display={"flex"} alignItems={"center"}>
+                            <Link to={"/"} color="primary">
+                                {/* <img src={AiOpenLogo} height={65} alt="logo" /> */}
+                                <Typography variant="h5" color="primary">
+                                    NaturaLP
+                                </Typography>
+                            </Link>
+                        </Box>
+                        <Box display="flex" alignItems={"center"}>
+                            <Box
+                                sx={{ display: { xs: "flex" } }}
+                                alignItems={"center"}
+                            >
+                                <>
+                                    <IconButton
+                                        aria-label="Menu"
+                                        onClick={handleMenuOpen}
+                                        size="large"
+                                    >
+                                        <MenuIcon color="primary" />
+                                    </IconButton>
 
-                                <Drawer
-                                    anchor="right"
-                                    open={open}
-                                    onClose={() => handleMenuClose()}
-                                    variant="temporary"
-                                    sx={{
-                                        "& .MuiPaper-root": {
-                                            width: "100%",
-                                            maxWidth: {
-                                                xs: "100%",
-                                                sm: 400,
-                                            },
-                                            borderRadius: {
-                                                xs: "4px",
-                                                md: "0",
-                                            },
-                                            borderTopLeftRadius: {
-                                                md: "12px",
-                                            },
-                                            borderBottomLeftRadius: {
-                                                md: "12px",
-                                            },
-                                        },
-                                    }}
-                                >
-                                    <Box padding={1} height={"100%"}>
-                                        {/* <CloseIcon
-                                            fontSize="large"
-                                            onClick={handleMenuClose}
-                                            sx={{ cursor: "pointer" }}
-                                        ></CloseIcon> */}
-                                        <Box
-                                            sx={{
-                                                height: "90%",
-                                                "& a": {
-                                                    padding: "20px",
-                                                    height: "100%",
-                                                    width: "100%",
-
-                                                    textDecoration: "none",
-                                                    color: "inherit",
-                                                    "& li": {
-                                                        padding: 0,
-                                                    },
-                                                    // "& li:hover": {
-                                                    //     backgroundColor:
-                                                    //         "red",
-                                                    // },
+                                    <Drawer
+                                        anchor="right"
+                                        open={open}
+                                        onClose={() => handleMenuClose()}
+                                        variant="temporary"
+                                        sx={{
+                                            "& .MuiPaper-root": {
+                                                width: "100%",
+                                                maxWidth: {
+                                                    xs: "100%",
+                                                    sm: 400,
                                                 },
-                                            }}
-                                        >
-                                            {/* <Box
+                                                borderRadius: {
+                                                    xs: "4px",
+                                                    md: "0",
+                                                },
+                                                borderTopLeftRadius: {
+                                                    md: "12px",
+                                                },
+                                                borderBottomLeftRadius: {
+                                                    md: "12px",
+                                                },
+                                            },
+                                        }}
+                                    >
+                                        <Box padding={1} height={"100%"}>
+                                            <CloseIcon
+                                                fontSize="large"
+                                                onClick={handleMenuClose}
+                                                sx={{ cursor: "pointer" }}
+                                            ></CloseIcon>
+                                            <Box
+                                                sx={{
+                                                    height: "90%",
+                                                    "& a": {
+                                                        padding: "20px",
+                                                        height: "100%",
+                                                        width: "100%",
+                                                        borderRadius: "4px",
+                                                        transition:
+                                                            "background-color .3s ease, color .3s ease",
+
+                                                        "& li": {
+                                                            padding: 0,
+                                                        },
+                                                        // "& li:hover": {
+                                                        //     backgroundColor:
+                                                        //         "red",
+                                                        // },
+
+                                                        "&:hover": {
+                                                            backgroundColor:
+                                                                "#cacaca",
+                                                            color: "#121212",
+                                                        },
+                                                    },
+                                                }}
+                                            >
+                                                {/* <Box
                                                             component={Link}
                                                             to={
                                                                 RoutesPath.profile
@@ -138,21 +148,23 @@ export const Header: FC = () => {
                                                         >
                                                             Профиль
                                                         </Box> */}
-                                            <MenuItem>
-                                                <Link
-                                                    to={"/menu"}
-                                                    onClick={handleMenuClose}
-                                                >
-                                                    <Typography
-                                                        align="center"
-                                                        fontWeight={600}
-                                                        variant="h6"
+                                                <MenuItem>
+                                                    <Link
+                                                        to={"/map"}
+                                                        onClick={
+                                                            handleMenuClose
+                                                        }
                                                     >
-                                                        Меню
-                                                    </Typography>
-                                                </Link>
-                                            </MenuItem>
-                                            {/* <MenuItem>
+                                                        <Typography
+                                                            align="center"
+                                                            fontWeight={600}
+                                                            variant="h6"
+                                                        >
+                                                            Карта
+                                                        </Typography>
+                                                    </Link>
+                                                </MenuItem>
+                                                {/* <MenuItem>
                                                 <Link
                                                     to={RoutesPath.subscription}
                                                     onClick={handleMenuClose}
@@ -166,7 +178,7 @@ export const Header: FC = () => {
                                                     </Typography>
                                                 </Link>
                                             </MenuItem> */}
-                                            {/* <MenuItem>
+                                                {/* <MenuItem>
                                                 <Link
                                                     to={RoutesPath.booking}
                                                     onClick={handleMenuClose}
@@ -180,13 +192,13 @@ export const Header: FC = () => {
                                                     </Typography>
                                                 </Link>
                                             </MenuItem> */}
+                                            </Box>
                                         </Box>
-                                    </Box>
-                                </Drawer>
-                            </>
+                                    </Drawer>
+                                </>
+                            </Box>
                         </Box>
                     </Box>
-                </Box>
                 </Container>
             </AppBar>
         </HideOnScroll>
