@@ -85,6 +85,11 @@ const MapPage: React.FC = () => {
                                     dateAdapter={AdapterDayjs}
                                 >
                                     <DateTimePicker
+                                        sx={{
+                                            "& button": {
+                                                color: "#121212",
+                                            },
+                                        }}
                                         label="Выберите дату"
                                         className={s.datetime}
                                         selectedSections={undefined}
@@ -124,6 +129,7 @@ const MapPage: React.FC = () => {
                                                             <span>
                                                                 {item.PATH_LEN}
                                                             </span>
+                                                            
                                                         </p>
                                                         <p className={s.title}>
                                                             Начальная станция:{" "}

@@ -6,7 +6,7 @@ import {
     Polyline,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import L from "leaflet";
+import L, { LatLngExpression } from "leaflet";
 import blackStation from "../../assets/images/blackStation.png";
 import greenStation from "../../assets/images/greenStation.png";
 
@@ -109,7 +109,7 @@ const RussiaRailwayMap: React.FC<RussiaRailwayMapProps> = ({ data }) => {
                                     <Popup>
                                         <>
                                             <p>
-                                                ID Станции:
+                                                ID Станции:{" "}
                                                 <span
                                                     style={{
                                                         fontWeight: 600,
@@ -129,7 +129,7 @@ const RussiaRailwayMap: React.FC<RussiaRailwayMapProps> = ({ data }) => {
                                                 </span>
                                             </p>
                                             <p>
-                                                Время прибытия
+                                                Время прибытия:
                                                 <span
                                                     style={{
                                                         display: "block",
@@ -172,26 +172,47 @@ const RussiaRailwayMap: React.FC<RussiaRailwayMapProps> = ({ data }) => {
                     const trainPath = (
                         <>
                             {train.station_data &&
-                                train.station_data.map((station, index) => (
-                                    <Polyline
-                                        key={index}
-                                        positions={[
-                                            [
-                                                station?.LATITUDE || 0,
-                                                station?.LONGITUDE || 0,
-                                            ],
-                                            [
-                                                train.station_data[index + 1]
-                                                    ?.LATITUDE || 0,
-                                                train.station_data[index + 1]
-                                                    ?.LONGITUDE || 0,
-                                            ],
-                                        ]}
-                                        color={
-                                            station?.IS_GONE ? "green" : "black"
+                                train.station_data.reduce(
+                                    (paths: JSX.Element[], station: stationTrainData, index: number, arr: stationTrainData[]) => {
+                                        const currentCoords: LatLngExpression = [
+                                            station?.LATITUDE || 0,
+                                            station?.LONGITUDE || 0,
+                                        ];
+
+                                        if (currentCoords[0] === 0 && currentCoords[1] === 0) {
+                                            return paths;
                                         }
-                                    />
-                                ))}
+
+                                        let nextStationIndex = index + 1;
+                                        let nextStation = arr[nextStationIndex];
+
+                                        while (
+                                            nextStation &&
+                                            (nextStation.LATITUDE === null || nextStation.LONGITUDE === null || nextStation.LATITUDE === 0 || nextStation.LONGITUDE === 0)
+                                        ) {
+                                            nextStationIndex++;
+                                            nextStation = arr[nextStationIndex];
+                                        }
+
+                                        const nextCoords: LatLngExpression = nextStation
+                                            ? [
+                                                nextStation.LATITUDE || 0,
+                                                nextStation.LONGITUDE || 0,
+                                            ]
+                                            : currentCoords;
+
+                                        const path = (
+                                            <Polyline
+                                                key={index}
+                                                positions={[currentCoords, nextCoords]}
+                                                color={station?.IS_GONE ? "green" : "black"}
+                                            />
+                                        );
+
+                                        return [...paths, path];
+                                    }, []
+                                )
+                            }
                         </>
                     );
 

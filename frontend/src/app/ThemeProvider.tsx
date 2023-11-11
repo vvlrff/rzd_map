@@ -82,6 +82,15 @@ const MyThemeProvider: FC<IThemeProvider> = ({ children }) => {
                     },
                 },
             },
+            MuiIconButton: {
+                styleOverrides: {
+                    // Name of the slot
+                    root: {
+                        // Some CSS
+                        color: "#fff",
+                    },
+                },
+            },
             MuiMenuItem: {
                 styleOverrides: {},
             },
