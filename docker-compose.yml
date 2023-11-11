@@ -8,21 +8,16 @@ services:
       - "8000:8000"
     env_file:
       - ./backend/.env
-    volumes:
-      - ./backend:/backend
     depends_on:
       - dbhack
 
-  # frontend:
-  #   build: ./frontend
-  #   ports:
-  #     - "3000:3000"
-  #   volumes:
-  #     - ./frontend:/usr/src/app
-  #     - ./frontend:/usr/src/app/node_modules
-  #   command: npm run dev
-  #   depends_on:
-  #     - backend
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    command: npm run dev
+    depends_on:
+      - backend
 
   pgadminhack:
     image: dpage/pgadmin4:latest
@@ -56,5 +51,4 @@ services:
 
 volumes:
   postgres_data:
-  # client:
-  # backend:
+
