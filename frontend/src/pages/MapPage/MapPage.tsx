@@ -140,6 +140,12 @@ const MapPage: React.FC = () => {
                                                                       backgroundColor:
                                                                           "black !important",
                                                                   },
+
+                                                                  "& .svg": {
+                                                                      path: {
+                                                                          fill: "#fff !important",
+                                                                      },
+                                                                  },
                                                               }
                                                             : {}
                                                     }
