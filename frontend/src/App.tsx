@@ -1,8 +1,4 @@
-import {
-    Route,
-    createBrowserRouter,
-    RouterProvider,
-    createRoutesFromElements,
+import {Route,createBrowserRouter,RouterProvider,createRoutesFromElements,
 } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
 import InnerLayout from "./components/Layout/InnerLayout";
@@ -15,15 +11,15 @@ import MenuPage from "./pages/MenuPage/MenuPage";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
-        <Route path="/" element={<Layout />}>
+        <Route path="/" element={<InnerLayout />}>
             <Route index element={<HomePage />} />
-            <Route path="menu" element={<InnerLayout />}>
-                <Route index element={<MenuPage />} />
+            {/* <Route path="menu" element={<InnerLayout />}>
+                <Route index element={<MenuPage />} /> */}
                 <Route path="map" element={<MapPage />} />
                 <Route path="data" element={<DataPage />} />
                 <Route path="data/:id" element={<IdPage />} />
                 <Route path="*" element={<NotFoundPage />} />
-            </Route>
+            {/* </Route> */}
         </Route>
     )
 );
