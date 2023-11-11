@@ -46,6 +46,11 @@ const Hero = () => {
                     </Typography>
                     <Link to="map">
                         <Button
+                            sx={{
+                                fontSize: 18,
+                                padding: "16px 32px",
+                                borderRadius: "12px",
+                            }}
                             color="secondary"
                             size="large"
                             variant="contained"
