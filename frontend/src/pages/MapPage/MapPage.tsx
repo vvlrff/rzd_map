@@ -4,11 +4,32 @@ import s from "./MapPage.module.scss";
 import { mapApi } from "../../services/mapApi";
 import { Box } from "@mui/material";
 import Loader from "../../components/Loader/Loader";
+import { motion } from "framer-motion";
 
 const MapPage: React.FC = () => {
     const { data: trainIdexesData } = mapApi.useGetTrainIndexesQuery("");
     const [asdasd, { data, isLoading }] =
         mapApi.usePostTrainWagonDataMutation();
+
+    const containerV = {
+        hidden: { opacity: 1, scale: 0 },
+        visible: {
+            opacity: 1,
+            scale: 1,
+            transition: {
+                delayChildren: 0.3,
+                staggerChildren: 0.2,
+            },
+        },
+    };
+
+    const itemV = {
+        hidden: { y: 20, opacity: 0 },
+        visible: {
+            y: 0,
+            opacity: 1,
+        },
+    };
 
     return (
         <div className={s.container}>
@@ -18,21 +39,32 @@ const MapPage: React.FC = () => {
                 </>
             ) : (
                 <>
-                    <Box>
+                    <Box
+                        sx={{
+                            overflowY: "scroll",
+                            overflowX: "hidden",
+                        }}
+                    >
                         <div className={s.sidebar}>
-                            {trainIdexesData &&
-                                trainIdexesData[0]["TRAIN_INDEXS"]?.map(
-                                    (item: any, key: number) => {
-                                        return (
-                                            <div
-                                                key={key}
-                                                className={s.itemContainer}
-                                                onClick={() => asdasd(item)}
-                                            >
-                                                <div className={s.item}>
+                            <motion.div
+                                className={s.itemContainer}
+                                variants={containerV}
+                                initial="hidden"
+                                animate="visible"
+                            >
+                                {trainIdexesData &&
+                                    trainIdexesData[0]["TRAIN_INDEXS"]?.map(
+                                        (item: any, key: number) => {
+                                            return (
+                                                <div
+                                                    className={s.item}
+                                                    onClick={() => asdasd(item)}
+                                                    key={key}
+                                                    variants={itemV}
+                                                >
                                                     <p className={s.title}>
                                                         {" "}
-                                                        Маршрут №{item}
+                                                        Поезд №{item}
                                                     </p>
                                                     <div className={s.svg}>
                                                         <svg
@@ -50,10 +82,10 @@ const MapPage: React.FC = () => {
                                                         </svg>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        );
-                                    }
-                                )}
+                                            );
+                                        }
+                                    )}
+                            </motion.div>
                         </div>
                     </Box>
 

@@ -4,9 +4,7 @@ import Container from "../../../components/Container/Container";
 const Concept = () => {
     return (
         <Container>
-            <Box>
-                <Typography>Как это работает?</Typography>
-            </Box>
+            <Box>{/* <Typography>Как это работает?</Typography> */}</Box>
         </Container>
     );
 };

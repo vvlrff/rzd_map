@@ -30,7 +30,7 @@ const Hero = () => {
                         color="primary"
                         gutterBottom
                     >
-                        Следите за поездом
+                        ЖД карта желаний
                     </Typography>
                     <Typography
                         align="center"
@@ -38,7 +38,7 @@ const Hero = () => {
                         variant="h5"
                         gutterBottom
                     >
-                        Отслеживайте местоположение поезда без проблем
+                        Создание карты движения поездов
                     </Typography>
                     <Link to="map">
                         <Button
