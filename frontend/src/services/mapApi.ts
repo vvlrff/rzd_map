@@ -12,7 +12,21 @@ export const mapApi = createApi({
         url: `/admin/stantioncoord`,
       })
     }),
+    getTrainIndexes: builder.query<any, string>({
+      query: () => ({
+        url: `/admin/trains_index`,
+      })
+    }),
+    postTrainWagonData: builder.mutation<any, string>({
+      query: (train_index) => ({
+        url: `/admin/Support_2`,
+        method: "POST",
+        body: {
+          train_index
+        }
+      })
+    }),
   }),
 });
 
-export const { useGetStationCoordQuery } = mapApi;
+export const { useGetStationCoordQuery, useGetTrainIndexesQuery, usePostTrainWagonDataMutation } = mapApi;

@@ -1,8 +1,25 @@
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, Polyline } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { mapApi } from "../../services/mapApi";
 import L from 'leaflet';
 
+interface RussiaRailwayMapProps {
+  data?: TrainData[];
+}
+
+interface TrainData {
+  train_index: string;
+  station_data: stationTrainData[];
+}
+
+interface stationTrainData {
+  ST_ID_DISL: number;
+  LATITUDE: number;
+  LONGITUDE: number;
+  OPERDATE: number;
+  ST_ID_DISL_WAGNUM: number[];
+  WAGON_AMOUNT: number;
+}
 
 interface StationData {
   ST_ID: number;
@@ -10,7 +27,7 @@ interface StationData {
   LONGITUDE: number;
 }
 
-const RussiaRailwayMap = () => {
+const RussiaRailwayMap: React.FC<RussiaRailwayMapProps> = ({ data }) => {
   const { data: stationCoordData } = mapApi.useGetStationCoordQuery('')
 
   const trailSignIcon = new L.Icon({
@@ -43,12 +60,6 @@ const RussiaRailwayMap = () => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
 
-      {/* Черно-белые тайлы OpenStreetMap */}
-      {/* <TileLayer
-        url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/attributions">CartoDB</a>'
-      /> */}
-
       {/* ЖД тайлы openrailwaymap */}
       <TileLayer
         url="https://tiles.openrailwaymap.org/standard/{z}/{x}/{y}.png"
@@ -56,15 +67,33 @@ const RussiaRailwayMap = () => {
       />
 
       {stationCoordData && stationCoordData.map((station: StationData) => (
-          <Marker
-            key={station.ST_ID}
-            position={[station.LATITUDE, station.LONGITUDE]}
-            icon={trailSignIcon}
-          >
-            {/* Можно добавить Popup, если необходимо */}
-            <Popup>{`Станция ID: ${station.ST_ID}`}</Popup>
-          </Marker>
+        <Marker
+          key={station.ST_ID}
+          position={[station.LATITUDE, station.LONGITUDE]}
+          icon={trailSignIcon}
+        >
+          {/* Можно добавить Popup, если необходимо */}
+          <Popup>{`Станция ID: ${station.ST_ID}`}</Popup>
+        </Marker>
       ))}
+
+      {data ? (
+        data.map((train: TrainData) => (
+          <Polyline
+            key={train.train_index}
+            positions={train.station_data
+              .filter((station) => station.LATITUDE !== null && station.LONGITUDE !== null)
+              .map((station) => [station.LATITUDE, station.LONGITUDE])}
+            color="blue"
+          />
+        ))
+      ) : (
+        <TileLayer
+          url="https://tiles.openrailwaymap.org/standard/{z}/{x}/{y}.png"
+          attribution='&copy; <a href="https://www.openrailwaymap.org/">OpenRailwayMap</a> contributors'
+        />
+      )}
+
     </MapContainer>
   );
 };

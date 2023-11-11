@@ -3,6 +3,9 @@ from typing import Any, Dict
 from fastapi import UploadFile, File
 
 
+class TrainIndexRequest(BaseModel):
+    train_index: str
+
 class PutPost(BaseModel):
     id_post: int
     title: str

@@ -68,20 +68,11 @@ async def trains_index(session: AsyncSession = Depends(get_async_session)):
     return JSONResponse(data)
 
 
-@router.get('/Support_2')
-async def all_peregons(train_index: str, session: AsyncSession = Depends(get_async_session)):
+@router.post('/Support_2')
+async def all_peregons(request_data: TrainIndexRequest, session: AsyncSession = Depends(get_async_session)):
     support = Support2(coonection=session)
-    data = await support.all_peregons(train_index=train_index)
-    stmt = (
-        insert(TrainData)
-        .values(
-            train_index = data[0]['train_index'],
-            station_data = data[0]['station_data'],
-    )
-    )
-    await session.execute(stmt)
-    await session.commit()
 
+    data = await support.all_peregons(train_index=request_data.train_index)
     return JSONResponse(data)
 
 

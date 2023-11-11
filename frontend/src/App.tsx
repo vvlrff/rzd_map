@@ -1,9 +1,4 @@
-import {
-    Route,
-    createBrowserRouter,
-    RouterProvider,
-    createRoutesFromElements,
-} from "react-router-dom";
+import { Route, createBrowserRouter, RouterProvider, createRoutesFromElements, } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
 import InnerLayout from "./components/Layout/InnerLayout";
 import HomePage from "./pages/HomePage/HomePage";
@@ -17,13 +12,13 @@ const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<Layout />}>
             <Route index element={<HomePage />} />
-            <Route path="menu" element={<InnerLayout />}>
-                <Route index element={<MenuPage />} />
-                <Route path="map" element={<MapPage />} />
-                <Route path="data" element={<DataPage />} />
-                <Route path="data/:id" element={<IdPage />} />
-                <Route path="*" element={<NotFoundPage />} />
-            </Route>
+            {/* <Route path="menu" element={<InnerLayout />}>
+                <Route index element={<MenuPage />} /> */}
+            <Route path="map" element={<MapPage />} />
+            <Route path="data" element={<DataPage />} />
+            <Route path="data/:id" element={<IdPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+            {/* </Route> */}
         </Route>
     )
 );
