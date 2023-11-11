@@ -78,7 +78,7 @@
         padding-left: 10%;
         overflow: hidden;
         text-decoration: none;
-        transition: transform 0.3s ease
+        transition: transform 0.3s ease;
     }
 
     .lower_block:hover {
@@ -142,7 +142,6 @@
         align-items: center;
         z-index: 999;
     }
-
 
     .loadingMessage {
         color: #fff;
