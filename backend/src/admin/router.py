@@ -48,9 +48,7 @@ async def get_info_db(session: AsyncSession = Depends(get_async_session)):
     output_data = transform_data(input_data)
 
     return JSONResponse(content=output_data)
-    # support = Support(session)
-    # data = await support.info_db()
-    # return JSONResponse(content=data)
+
 
 
 @router.get('/PEREGON_HACKATON')
@@ -62,18 +60,12 @@ async def all_peregons(session: AsyncSession = Depends(get_async_session)):
 
 
 
-@router.get('/disl_hackaton')
-async def get_info_page(session: AsyncSession = Depends(get_async_session)):
-    ...
-    return JSONResponse(
-        [
+@router.get('/trains_index')
+async def trains_index(session: AsyncSession = Depends(get_async_session)):
+    support = Support(coonection=session)
+    data = await support.trains_index()
+    return JSONResponse(data)
 
-        {'WAGNUM': {0: 5266, 1: 5266, 2: 5266, 3: 5266, 4: 5266, 5: 5266, 6: 5266, 7: 5266, 8: 5266, 9: 5266, 10: 5266, 11: 5266, 12: 5266, 13: 5266, 14: 5266, 15: 5266, 16: 5266, 17: 5266, 18: 5266, 19: 5266}, 'OPERDATE': {0: 
-'2023-08-30 01:02:00', 1: '2023-08-30 05:26:00', 2: '2023-08-30 05:05:00', 3: '2023-08-28 23:45:00', 4: '2023-08-28 22:29:00', 5: '2023-08-28 23:06:00', 
-6: '2023-08-27 16:02:00', 7: '2023-08-27 13:15:00', 8: '2023-08-27 07:27:00', 9: '2023-08-26 15:25:01', 10: '2023-08-26 15:25:00', 11: '2023-08-26 14:54:00', 12: '2023-08-26 10:05:00', 13: '2023-08-26 12:53:00', 14: '2023-08-26 11:31:00', 15: '2023-08-26 10:26:00', 16: '2023-08-26 02:37:00', 17: '2023-08-26 01:16:00', 18: '2023-08-26 00:33:00', 19: '2023-08-26 18:29:00'}, 'ST_ID_DISL': {0: 7475, 1: 63, 2: 7475, 3: 7475, 4: 7469, 5: 7475, 6: 20714, 7: 5598, 8: 5631, 9: 6169, 10: 6169, 11: 6169, 12: 
-6628, 13: 6598, 14: 6614, 15: 6625, 16: 6663, 17: 7045, 18: 7052, 19: 6169}, 'ST_ID_DEST': {0: 61, 1: 61, 2: 61, 3: 61, 4: 61, 5: 61, 6: 61, 7: 61, 8: 61, 9: 61, 10: 61, 11: 61, 12: 61, 13: 61, 14: 61, 15: 61, 16: 61, 17: 61, 18: 61, 19: 61}, 'TRAIN_INDEX': {0: '7475-335-62', 1: '7475-335-62', 2: '7475-335-62', 3: '6999-471-7475', 4: '6999-471-7475', 5: '6999-471-7475', 6: '20792-360-6999', 7: '20792-360-6999', 8: '20792-360-6999', 9: '20792-360-6999', 10: '20792-360-6999', 11: '20792-360-6999', 12: '20792-360-6999', 13: '20792-360-6999', 14: '20792-360-6999', 15: '20792-360-6999', 16: '20792-360-6999', 17: '20792-360-6999', 18: '20792-360-6999', 19: '20792-360-6999'}
-}]
-    )
 
 @router.get('/Support_2')
 async def all_peregons(train_index: str, session: AsyncSession = Depends(get_async_session)):
