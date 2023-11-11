@@ -234,6 +234,7 @@ const RussiaRailwayMap: React.FC<RussiaRailwayMapProps> = ({ data }) => {
 
                                         const path = (
                                             <Polyline
+                                                weight = {7}
                                                 key={index}
                                                 positions={[
                                                     currentCoords,
