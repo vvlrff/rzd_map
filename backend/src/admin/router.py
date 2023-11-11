@@ -1,11 +1,12 @@
 from fastapi import APIRouter, Depends
 from fastapi.responses import JSONResponse
+from sqlalchemy import distinct, insert, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from ..datebase import get_async_session
 from fastapi import UploadFile, File
 from .schemas import *
 import os
-
+from .models import *
 from .support import Support
 from .support2 import Support2
 
@@ -70,6 +71,7 @@ async def trains_index(session: AsyncSession = Depends(get_async_session)):
 @router.post('/Support_2')
 async def all_peregons(request_data: TrainIndexRequest, session: AsyncSession = Depends(get_async_session)):
     support = Support2(coonection=session)
+
     data = await support.all_peregons(train_index=request_data.train_index)
     return JSONResponse(data)
 
@@ -79,4 +81,3 @@ async def one_train_with_time(request_data: TrainIndexRequestCurrentData, sessio
     support = Support2(coonection=session)
     data = await support.one_train_with_time(train_index=request_data.train_index, current_time=request_data.current_data)
     return JSONResponse(data)
-

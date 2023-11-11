@@ -33,15 +33,15 @@ const MyThemeProvider: FC<IThemeProvider> = ({ children }) => {
                 main: "#fff",
             },
             secondary: {
-                main: "#1C3FAA",
+                main: "#7036bb",
             },
             background: {
-                default: "#fff",
-                paper: "#f5f4f6",
+                default: "#121212",
+                paper: "#000",
             },
             // divider: "#FA0644",
             text: {
-                primary: "#040710",
+                primary: "#fff",
                 // secondary: '#fff'
             },
         },
@@ -67,7 +67,7 @@ const MyThemeProvider: FC<IThemeProvider> = ({ children }) => {
             MuiAppBar: {
                 styleOverrides: {
                     colorPrimary: {
-                        backgroundColor: "#666",
+                        backgroundColor: "#121212",
                     },
                 },
             },
