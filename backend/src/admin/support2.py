@@ -4,6 +4,7 @@ from sqlalchemy import and_, select
 from .models import *
 from .schemas import * 
 
+
 class Support2:
 
     def __init__(self, coonection):
@@ -48,7 +49,6 @@ class Support2:
                     total_data[0]['station_data'][station_index]['ST_ID_DISL_WAGNUM'].append(element[1])
 
             total_data[0]['station_data'][station_index]['WAGON_AMOUNT'] = len(total_data[0]['station_data'][station_index]['ST_ID_DISL_WAGNUM'])
-
         return total_data
     
     async def one_train_without_time(self, train_index = '8810-413-8811'):
@@ -58,7 +58,6 @@ class Support2:
         one_train_data = one_train_data[0]
         one_train_data = sorted(one_train_data, key=lambda x: x['OPERDATE'])
         total_data_one_train = [{'train_index': train_index, 'station_data': one_train_data}]
-
         return total_data_one_train
 
     async def list_one_train_without_time(self, train_index = ['8810-413-8811']):
@@ -79,7 +78,7 @@ class Support2:
         stmt_one_train = select(TrainData.station_data).where(TrainData.train_index == train_index)
         stmt_one_train = await self.connect.execute(stmt_one_train)
         one_train_data = stmt_one_train.fetchone()
-        
+
         one_train_data = one_train_data[0]
         one_train_data = sorted(one_train_data, key=lambda x: x['OPERDATE'])
 
@@ -90,7 +89,6 @@ class Support2:
                 current_station['IS_GONE'] = False
 
         total_data_one_train = [{'train_index': train_index, 'station_data': one_train_data}]
-
         return total_data_one_train
         
     async def list_one_train_with_time(self, train_index = ['8810-413-8811'], current_time = '2023-06-06 05:30:00'):
@@ -112,7 +110,6 @@ class Support2:
 
             total_data_one_train = [{'train_index': one_index, 'station_data': one_train_data}]
             data.append(total_data_one_train)
-
         return data
     
     async def trains_index(self):
@@ -129,6 +126,3 @@ class Support2:
                         'LAST_STATIONS': sorted_res[index][1][-1]['ST_ID_DISL']
                         })
         return data
-
-    
-    
