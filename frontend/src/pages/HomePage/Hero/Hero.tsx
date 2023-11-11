@@ -14,7 +14,7 @@ const Hero = () => {
             transition={{ duration: 1 }}
             zIndex={2}
         >
-            <img className={s.img} src="/mainTrain.webp" alt="" />
+            <img className={s.img} src="/mainTrain.webp" alt="mainImg" />
             <Container>
                 <Box
                     display="flex"
