@@ -3,7 +3,7 @@ from fastapi.responses import JSONResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 from ..datebase import get_async_session
 from fastapi import UploadFile, File
-from .schemas import * 
+from .schemas import *
 import os
 
 from .support import Support
@@ -11,28 +11,55 @@ from .support2 import Support2
 
 router = APIRouter(
     prefix='/admin',
-    tags= ['admin']
+    tags=['admin']
 )
+
+
+def transform_data(input_data):
+    result = []
+    
+    for item in input_data:
+        st_ids = item["ST_ID"]
+        latitudes = item["LATITUDE"]
+        longitudes = item["LONGITUDE"]
+        
+        transformed_data = []
+        
+        for key in st_ids:
+            transformed_item = {
+                "ST_ID": st_ids[key],
+                "LATITUDE": float(latitudes[key]),
+                "LONGITUDE": float(longitudes[key])
+            }
+            transformed_data.append(transformed_item)
+        
+        result.extend(transformed_data)
+    
+    return result
 
 
 @router.get('/stantioncoord')
 async def get_info_db(session: AsyncSession = Depends(get_async_session)):
-    ...
-    return JSONResponse([
-        {'ST_ID': {0: 2, 1: 3, 2: 4, 3: 5, 4: 6, 5: 7, 6: 8, 7: 9, 8: 10, 9: 11, 10: 12, 11: 13, 12: 14, 13: 15, 14: 16, 15: 17, 16: 18, 17: 19, 18: 20, 19: 21}, 'LATITUDE': {0: 48.4272, 1: 48.491, 2: 48.3981, 3: 48.3857, 4: 48.5423, 5: 48.6064, 6: 48.6062, 7: 48.5454, 8: 48.5232, 9: 48.6, 10: 48.4829, 11: 48.4678, 12: 48.4595, 13: 48.44, 14: 48.4937, 15: 48.5982, 16: 48.6338, 17: 48.6595, 18: 48.6163, 19: 48.6099}, 'LONGITUDE': {0: 42.2162, 
-1: 42.361, 2: 42.0699, 3: 41.9546, 4: 42.5028, 5: 42.6612, 6: 42.8445, 7: 42.9857, 8: 43.035, 9: 42.8937, 10: 43.1614, 11: 43.2739, 12: 43.3276, 13: 43.3798, 14: 43.4977, 15: 43.6106, 16: 43.7189, 17: 43.7828, 18: 43.6524, 19: 43.6325}}
-    ])
+    input_data =[
+        {'ST_ID': {0: 2, 1: 3, 2: 4, 3: 5, 4: 6, 5: 7, 6: 8, 7: 9, 8: 10, 9: 11, 10: 12, 11: 13, 12: 14, 13: 15, 14: 16, 15: 17, 16: 18, 17: 19, 18: 20, 19: 21}, 'LATITUDE': {0: 48.4272, 1: 48.491, 2: 48.3981, 3: 48.3857, 4: 48.5423, 5: 48.6064, 6: 48.6062, 7: 48.5454, 8: 48.5232, 9: 48.6, 10: 48.4829, 11: 48.4678, 12: 48.4595, 13: 48.44, 14: 48.4937, 15: 48.5982, 16: 48.6338, 17: 48.6595, 18: 48.6163, 19: 48.6099}, 'LONGITUDE': {0: 42.2162,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                  1: 42.361, 2: 42.0699, 3: 41.9546, 4: 42.5028, 5: 42.6612, 6: 42.8445, 7: 42.9857, 8: 43.035, 9: 42.8937, 10: 43.1614, 11: 43.2739, 12: 43.3276, 13: 43.3798, 14: 43.4977, 15: 43.6106, 16: 43.7189, 17: 43.7828, 18: 43.6524, 19: 43.6325}}
+    ]
+
+    output_data = transform_data(input_data)
+
+    return JSONResponse(content=output_data)
     # support = Support(session)
     # data = await support.info_db()
     # return JSONResponse(content=data)
 
 
-
 @router.get('/PEREGON_HACKATON')
+
 async def all_peregons(session: AsyncSession = Depends(get_async_session)):
     support = Support(coonection=session)
     data = await support.all_peregons()
     return JSONResponse(data)
+
 
 
 @router.get('/disl_hackaton')
@@ -40,6 +67,7 @@ async def get_info_page(session: AsyncSession = Depends(get_async_session)):
     ...
     return JSONResponse(
         [
+
         {'WAGNUM': {0: 5266, 1: 5266, 2: 5266, 3: 5266, 4: 5266, 5: 5266, 6: 5266, 7: 5266, 8: 5266, 9: 5266, 10: 5266, 11: 5266, 12: 5266, 13: 5266, 14: 5266, 15: 5266, 16: 5266, 17: 5266, 18: 5266, 19: 5266}, 'OPERDATE': {0: 
 '2023-08-30 01:02:00', 1: '2023-08-30 05:26:00', 2: '2023-08-30 05:05:00', 3: '2023-08-28 23:45:00', 4: '2023-08-28 22:29:00', 5: '2023-08-28 23:06:00', 
 6: '2023-08-27 16:02:00', 7: '2023-08-27 13:15:00', 8: '2023-08-27 07:27:00', 9: '2023-08-26 15:25:01', 10: '2023-08-26 15:25:00', 11: '2023-08-26 14:54:00', 12: '2023-08-26 10:05:00', 13: '2023-08-26 12:53:00', 14: '2023-08-26 11:31:00', 15: '2023-08-26 10:26:00', 16: '2023-08-26 02:37:00', 17: '2023-08-26 01:16:00', 18: '2023-08-26 00:33:00', 19: '2023-08-26 18:29:00'}, 'ST_ID_DISL': {0: 7475, 1: 63, 2: 7475, 3: 7475, 4: 7469, 5: 7475, 6: 20714, 7: 5598, 8: 5631, 9: 6169, 10: 6169, 11: 6169, 12: 
@@ -52,3 +80,4 @@ async def all_peregons(train_index: str, session: AsyncSession = Depends(get_asy
     support = Support2(coonection=session)
     data = await support.all_peregons(train_index=train_index)
     return JSONResponse(data)
+

@@ -1,14 +1,11 @@
-FROM node:18.16.0
+FROM node:18.13.0-alpine
 
-WORKDIR /user/src/app
+WORKDIR /app
 
-COPY ./package.json ./
+COPY ./package.json .
 
-RUN npm i vite
-RUN npm install 
+RUN npm install
 
 COPY . .
 
-EXPOSE 5173
-
-CMD ["npm", "run", "dev"]
+CMD [ "npm", "run", "dev" ]
