@@ -1,33 +1,11 @@
-import {
-    MapContainer,
-    TileLayer,
-    Marker,
-    Popup,
-    Polyline,
-} from "react-leaflet";
-import "leaflet/dist/leaflet.css";
+import { MapContainer, TileLayer, Marker, Popup, Polyline } from "react-leaflet";
 import L, { LatLngExpression } from "leaflet";
+import { RussiaRailwayMapProps, TrainData, stationTrainData } from "../../models/MapInterfaces";
 import blackStation from "../../assets/images/blackStation.png";
 import greenStation from "../../assets/images/greenStation.png";
+import "leaflet/dist/leaflet.css";
 
-interface RussiaRailwayMapProps {
-    data?: TrainData[];
-}
 
-interface TrainData {
-    train_index: string;
-    station_data: stationTrainData[];
-}
-
-interface stationTrainData {
-    ST_ID_DISL: number;
-    LATITUDE: number;
-    LONGITUDE: number;
-    OPERDATE: number;
-    ST_ID_DISL_WAGNUM: number[];
-    WAGON_AMOUNT: number;
-    IS_GONE?: boolean;
-}
 
 const RussiaRailwayMap: React.FC<RussiaRailwayMapProps> = ({ data }) => {
     const greenStationIcon = new L.Icon({
@@ -120,21 +98,13 @@ const RussiaRailwayMap: React.FC<RussiaRailwayMapProps> = ({ data }) => {
                                             />
                                             <p>
                                                 ID Станции:{" "}
-                                                <span
-                                                    style={{
-                                                        fontWeight: 600,
-                                                    }}
-                                                >
+                                                <span style={{ fontWeight: 600 }}>
                                                     {station.ST_ID_DISL}
                                                 </span>
                                             </p>
                                             <p>
                                                 Кол-во вагонов:{" "}
-                                                <span
-                                                    style={{
-                                                        fontWeight: 600,
-                                                    }}
-                                                >
+                                                <span style={{ fontWeight: 600 }} >
                                                     {station.WAGON_AMOUNT}
                                                 </span>
                                                 <span>
@@ -147,12 +117,7 @@ const RussiaRailwayMap: React.FC<RussiaRailwayMapProps> = ({ data }) => {
                                             </p>
                                             <p>
                                                 Время прибытия:
-                                                <span
-                                                    style={{
-                                                        display: "block",
-                                                        fontWeight: 600,
-                                                    }}
-                                                >
+                                                <span style={{ display: "block", fontWeight: 600 }} >
                                                     {`${day}.${month} - ${hours}:${minutes}`}
                                                 </span>
                                             </p>
@@ -160,20 +125,11 @@ const RussiaRailwayMap: React.FC<RussiaRailwayMapProps> = ({ data }) => {
                                                 <p>
                                                     {station?.IS_GONE ? (
                                                         <span
-                                                            style={{
-                                                                color: "green",
-                                                                fontWeight: 600,
-                                                            }}
-                                                        >
+                                                            style={{ color: "green", fontWeight: 600, }} >
                                                             Станция пройдена
                                                         </span>
                                                     ) : (
-                                                        <span
-                                                            style={{
-                                                                color: "red",
-                                                                fontWeight: 600,
-                                                            }}
-                                                        >
+                                                        <span style={{ color: "red", fontWeight: 600, }} >
                                                             Станция не пройдена
                                                         </span>
                                                     )}
@@ -215,7 +171,7 @@ const RussiaRailwayMap: React.FC<RussiaRailwayMapProps> = ({ data }) => {
                                             nextStation &&
                                             (nextStation.LATITUDE === null ||
                                                 nextStation.LONGITUDE ===
-                                                    null ||
+                                                null ||
                                                 nextStation.LATITUDE === 0 ||
                                                 nextStation.LONGITUDE === 0)
                                         ) {
@@ -226,10 +182,10 @@ const RussiaRailwayMap: React.FC<RussiaRailwayMapProps> = ({ data }) => {
                                         const nextCoords: LatLngExpression =
                                             nextStation
                                                 ? [
-                                                      nextStation.LATITUDE || 0,
-                                                      nextStation.LONGITUDE ||
-                                                          0,
-                                                  ]
+                                                    nextStation.LATITUDE || 0,
+                                                    nextStation.LONGITUDE ||
+                                                    0,
+                                                ]
                                                 : currentCoords;
 
                                         const path = (

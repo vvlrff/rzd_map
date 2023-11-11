@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { IRequest } from "../models/Request";
+import { IRequest } from "../models/IRequest";
 
 
 export const mapApi = createApi({
