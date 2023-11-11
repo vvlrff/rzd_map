@@ -1,37 +1,42 @@
 import React from 'react';
-// import NewsCard from '../../components/NewsCard/NewsCard';
 import RussiaRailwayMap from '../../components/Map/RussiaRailwayMap';
 import s from './MapPage.module.scss';
+import { mapApi } from '../../services/mapApi';
 
 
 const MapPage: React.FC = () => {
-  // const [selectedItem, setSelectedItem] = useState<any>(null);
-
-  // const handleOpenCard = (item: any) => {
-  //   setSelectedItem(item);
-  // };
-
-  // const handleCloseCard = () => {
-  //   setSelectedItem(null);
-  // };
+  const { data: trainIdexesData } = mapApi.useGetTrainIndexesQuery("");
+  const [asdasd, { data, isLoading }] = mapApi.usePostTrainWagonDataMutation();
 
   return (
     <div className={s.container}>
-
-      <div className={s.sidebar}>
-      </div>
-
-      <div className={s.map}>
-        <RussiaRailwayMap />
-      </div>
-
-      {/* {selectedItem && (
-        <div className={s.overlay}>
-          <NewsCard item={selectedItem} onClose={handleCloseCard} />
-        </div>
-      )} */}
-    </div>
-  );
-};
+      {isLoading ? (
+        <>
+          Идет загрузка
+        </>
+      ) : (
+        <>
+          <div className={s.sidebar}>
+            {trainIdexesData && trainIdexesData[0]["TRAIN_INDEXS"]?.map((item: any, key: number) => {
+              return (
+                <div
+                  key={key}
+                  className={s.item}
+                  onClick={() => asdasd(item)}
+                >
+                  Маршрут №{item}
+                </div>
+              );
+            }
+            )}
+          </div>
+          <div className={s.map}>
+            <RussiaRailwayMap data={data} />
+          </div>
+        </>
+      )}
+    </div >
+  )
+}
 
 export default MapPage;
