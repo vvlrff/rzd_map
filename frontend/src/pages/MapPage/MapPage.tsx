@@ -150,7 +150,6 @@ const MapPage: React.FC = () => {
                                         />
                                     </LocalizationProvider>
                                 </Box>
-                                <div className={s.item}></div>
 
                                 {filterTrainIdexesData &&
                                     filterTrainIdexesData?.map(
