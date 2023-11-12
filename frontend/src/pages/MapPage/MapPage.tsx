@@ -21,28 +21,37 @@ const MapPage: React.FC = () => {
     const { data: trainIdexesData } = mapApi.useGetTrainIndexesQuery("");
     const [clickItem, setClickItem] = useState<string[]>([]);
     const [selectedDateTime, setSelectedDateTime] = useState<Date | null>(null);
-    const [filterValue, setFilterValue] = useState('');
-    const [filterTrainIdexesData, setFilterTrainIdexesData] = useState<TrainIndexData[]>([]);
+    const [filterValue, setFilterValue] = useState("");
+    const [filterTrainIdexesData, setFilterTrainIdexesData] = useState<
+        TrainIndexData[]
+    >([]);
 
-    const [listSupport2, { data: datalistSupport2, isLoading: isLoadingListSupport2 }] =
-        mapApi.usePostListSupport2Mutation();
-    const [listTrainWagon, { data: datalistTrainWagon, isLoading: isLoadingListTrainWagon }] =
-        mapApi.usePostListTrainWagonDataMutation();
+    const [
+        listSupport2,
+        { data: datalistSupport2, isLoading: isLoadingListSupport2 },
+    ] = mapApi.usePostListSupport2Mutation();
+    const [
+        listTrainWagon,
+        { data: datalistTrainWagon, isLoading: isLoadingListTrainWagon },
+    ] = mapApi.usePostListTrainWagonDataMutation();
 
     const filterCards = (value: string, data: TrainIndexData[] | undefined) => {
         return data
-            ? data.filter(item => item.TRAIN_INDEXS && item.TRAIN_INDEXS.includes(value))
+            ? data.filter(
+                  (item) =>
+                      item.TRAIN_INDEXS && item.TRAIN_INDEXS.includes(value)
+              )
             : [];
     };
 
     useEffect(() => {
         const Debounce = setTimeout(() => {
-            const filteredCards = filterCards(filterValue, trainIdexesData)
-            setFilterTrainIdexesData(filteredCards)
-        }, 300)
+            const filteredCards = filterCards(filterValue, trainIdexesData);
+            setFilterTrainIdexesData(filteredCards);
+        }, 300);
 
-        return () => clearTimeout(Debounce)
-    }, [trainIdexesData, filterValue])
+        return () => clearTimeout(Debounce);
+    }, [trainIdexesData, filterValue]);
 
     useEffect(() => {
         const fetchDataIfNeeded = async () => {
@@ -106,31 +115,42 @@ const MapPage: React.FC = () => {
                                 initial="hidden"
                                 animate="visible"
                             >
-                                <input
-                                    type="text"
-                                    placeholder="Введите значение фильтра"
-                                    value={filterValue}
-                                    onChange={(e) => setFilterValue(e.target.value)}
-                                />
-                                <LocalizationProvider
-                                    dateAdapter={AdapterDayjs}
+                                <Box
+                                    display={"flex"}
+                                    alignItems="center"
+                                    justifyContent="center"
+                                    gap={1}
                                 >
-                                    <DateTimePicker
-                                        sx={{
-                                            "& button": {
-                                                color: "#121212",
-                                            },
-                                        }}
-                                        label="Выберите дату"
-                                        className={s.datetime}
-                                        selectedSections={undefined}
-                                        onSelectedSectionsChange={undefined}
-                                        value={selectedDateTime}
-                                        onChange={(newDateTime) =>
-                                            setSelectedDateTime(newDateTime)
+                                    <input
+                                        type="text"
+                                        className={s.inputFilter}
+                                        placeholder="Введите значение"
+                                        value={filterValue}
+                                        onChange={(e) =>
+                                            setFilterValue(e.target.value)
                                         }
                                     />
-                                </LocalizationProvider>
+                                    <LocalizationProvider
+                                        dateAdapter={AdapterDayjs}
+                                    >
+                                        <DateTimePicker
+                                            sx={{
+                                                "& button": {
+                                                    color: "#121212",
+                                                },
+                                            }}
+                                            label="Выберите дату"
+                                            className={s.datetime}
+                                            selectedSections={undefined}
+                                            onSelectedSectionsChange={undefined}
+                                            value={selectedDateTime}
+                                            onChange={(newDateTime) =>
+                                                setSelectedDateTime(newDateTime)
+                                            }
+                                        />
+                                    </LocalizationProvider>
+                                </Box>
+                                <div className={s.item}></div>
 
                                 {filterTrainIdexesData &&
                                     filterTrainIdexesData?.map(
