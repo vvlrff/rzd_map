@@ -4,7 +4,8 @@
 Сервис предназначен для отображения на карте маршрутов следования поездов. Поезд включает в себя информацию куда он движется, по какому маршруту поедет и из каких вагонов он состоит.   
 Диспетчеру будет удобно пользоваться нашим сервисом!    
    
-![image](https://github.com/vvlrff/rzd_map/assets/125179070/f6a25a94-7663-492e-bb4c-56d7cf165bf3)    
+![image](https://github.com/vvlrff/rzd_map/assets/125179070/653b9a66-3aa3-418d-a9bd-431977c37e97)
+
 
 # Инструкция по запуску
 1) Скачиваем репозиторий проекта 
@@ -22,16 +23,14 @@
 2) Хранение данных, их валидация и поиск зависимостей;
 3) Привидение данных к подходящему для отображения виду;
 4) Создание сервиса и инновационных способов  визуализации данных.
-![image](https://github.com/vvlrff/rzd_map/assets/125179070/27c35791-5f2b-4275-ad85-56a912a07a7a)
+![image](https://github.com/vvlrff/rzd_map/assets/125179070/c7501353-3e1d-4e92-8fbf-f321651ba561)
 
-   
 # Используемые технологии
 1) FAST-API;
 2) React.ts;
 3) Leaflet;
 4) PostgreSQL.
-![image](https://github.com/vvlrff/rzd_map/assets/125179070/93889323-cca5-4bdd-8de3-f508866d8c30)
-
+![image](https://github.com/vvlrff/rzd_map/assets/125179070/7aaaf576-577f-4357-b26c-d276f63c8b35)
 
 # Описание решения
 ## Создание современного WEB-интерфейса:
@@ -40,8 +39,8 @@
 3) Асинхронные запросы RTK Query;
 4) Масштабируемая архитектура клиентского приложения;
 5) Более эффективный способ создания стилей при помощи Sass.
-![image](https://github.com/vvlrff/rzd_map/assets/125179070/0e9615ff-438f-47cf-8e56-a2f783221368)    
-![image](https://github.com/vvlrff/rzd_map/assets/125179070/2108dc74-b457-4d20-9fc2-0c5605f88a98)
+![image](https://github.com/vvlrff/rzd_map/assets/125179070/fe7e9d9c-a60e-416b-a5ef-8ea9b9363b49)
+
 
 ## Особенности решения:
 1) Возможность поиска по названию и по дате;
@@ -51,8 +50,10 @@
 5) Идентификация и удаление выбросов;
 6) State-of-art technology;
 7) Open-source libraires.
+![image](https://github.com/vvlrff/rzd_map/assets/125179070/7b8a5b23-b598-4195-b6cf-f46c4d0e3e9f)
+![image](https://github.com/vvlrff/rzd_map/assets/125179070/6f507590-fc34-4068-bb87-1fd34de94de9)
 
-  
+
 ## Ссылка на Google диск (презентация и демонстрация):    
 [https://drive.google.com/drive/folders/1TJqko7mr5ff_qnEXyAI8P-yqEbtJ5W75?usp=sharing   ](https://drive.google.com/drive/folders/1Jzueh7TgzRCgzhxhMZzPLiXvd-Lfjak6?usp=sharing) 
    
