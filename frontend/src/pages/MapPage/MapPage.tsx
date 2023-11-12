@@ -124,7 +124,7 @@ const MapPage: React.FC = () => {
                                     <input
                                         type="text"
                                         className={s.inputFilter}
-                                        placeholder="Введите значение"
+                                        placeholder="Номер поезда"
                                         value={filterValue}
                                         onChange={(e) =>
                                             setFilterValue(e.target.value)
